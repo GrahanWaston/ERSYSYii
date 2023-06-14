@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'point',
             'activity_id',
-            'departement_id',
+            'department_id',
             //'position_id',
             //'status',
             [

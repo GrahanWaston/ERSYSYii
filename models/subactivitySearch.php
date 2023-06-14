@@ -17,7 +17,7 @@ class subactivitySearch extends Subactivity
     public function rules()
     {
         return [
-            [['id', 'point', 'activity_id', 'departement_id', 'position_id'], 'integer'],
+            [['id', 'point', 'activity_id', 'department_id', 'position_id'], 'integer'],
             [['name', 'status'], 'safe'],
         ];
     }
@@ -61,7 +61,7 @@ class subactivitySearch extends Subactivity
             'id' => $this->id,
             'point' => $this->point,
             'activity_id' => $this->activity_id,
-            'departement_id' => $this->departement_id,
+            'department_id' => $this->department_id,
             'position_id' => $this->position_id,
         ]);
 

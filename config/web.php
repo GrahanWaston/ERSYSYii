@@ -1,7 +1,6 @@
 <?php
 
 $params = require __DIR__ . '/params.php';
-$db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
@@ -47,7 +46,6 @@ $config = [
                 ],
             ],
         ],
-        'db' => $db,
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -60,24 +58,7 @@ $config = [
     'params' => $params,
 ];
 
-if (YII_ENV_DEV) {
-    // configuration adjustments for 'dev' environment
-    $config['bootstrap'][] = 'debug';
-    $config['modules']['debug'] = [
-        'class' => 'yii\debug\Module',
-        // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
-    ];
-
-    $config['bootstrap'][] = 'gii';
-    $config['modules']['gii'] = [
-        'class' => 'yii\gii\Module',
-        // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
-    ];
-}
-
-$preset = function() {
+$preset = function () {
     return \jeemce\helpers\ArrayHelper::merge(
         (require __DIR__ . '/../vendor/jeemce/yii2/config/any.php'),
         (require __DIR__ . '/../vendor/jeemce/yii2/config/app.php'),

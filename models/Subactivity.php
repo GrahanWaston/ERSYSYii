@@ -11,12 +11,12 @@ use Yii;
  * @property string|null $name
  * @property int|null $point
  * @property int|null $activity_id
- * @property int|null $departement_id
+ * @property int|null $department_id
  * @property int|null $position_id
  * @property string|null $status
  *
  * @property Activities $activity
- * @property Departement $departement
+ * @property Dpartment $department
  * @property Ema[] $emas
  * @property Positions $position
  * @property Sda[] $sdas
@@ -37,11 +37,11 @@ class Subactivity extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['point', 'activity_id', 'departement_id', 'position_id'], 'integer'],
+            [['point', 'activity_id', 'department_id', 'position_id'], 'integer'],
             [['name'], 'string', 'max' => 128],
             [['status'], 'string', 'max' => 64],
             [['activity_id'], 'exist', 'skipOnError' => true, 'targetClass' => Activities::class, 'targetAttribute' => ['activity_id' => 'id']],
-            [['departement_id'], 'exist', 'skipOnError' => true, 'targetClass' => Departement::class, 'targetAttribute' => ['departement_id' => 'id']],
+            [['department_id'], 'exist', 'skipOnError' => true, 'targetClass' => department::class, 'targetAttribute' => ['department_id' => 'id']],
             [['position_id'], 'exist', 'skipOnError' => true, 'targetClass' => Positions::class, 'targetAttribute' => ['position_id' => 'id']],
         ];
     }
@@ -56,7 +56,7 @@ class Subactivity extends \yii\db\ActiveRecord
             'name' => 'Name',
             'point' => 'Point',
             'activity_id' => 'Activity ID',
-            'departement_id' => 'Departement ID',
+            'department_id' => 'department ID',
             'position_id' => 'Position ID',
             'status' => 'Status',
         ];
@@ -73,13 +73,13 @@ class Subactivity extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Departement]].
+     * Gets query for [[department]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getDepartement()
+    public function getdepartment()
     {
-        return $this->hasOne(Departement::class, ['id' => 'departement_id']);
+        return $this->hasOne(department::class, ['id' => 'department_id']);
     }
 
     /**

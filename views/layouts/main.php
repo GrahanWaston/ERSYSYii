@@ -3,12 +3,13 @@
 /** @var yii\web\View $this */
 /** @var string $content */
 
-use app\assets\AppAsset;
+use yii\helpers\Json;
 use app\widgets\Alert;
-use yii\bootstrap5\Breadcrumbs;
-use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
+use app\assets\AppAsset;
+use yii\bootstrap5\Html;
 use yii\bootstrap5\NavBar;
+use yii\bootstrap5\Breadcrumbs;
 
 
 $assets = AppAsset::register($this);
@@ -25,6 +26,11 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 	$('#sidebar').find('li.sidebar-item a.sidebar-link:not(.dropdown-toggle)').each(function() { 
         if (window.location.pathname.includes(this.pathname)) {
 			$(this).parent().addClass('active');
+		}
+	});
+	$('#sidebar').find('li.sidebar-subitem a.sidebar-link:not(.dropdown-toggle)').each(function() { 
+        if (window.location.pathname.includes(this.pathname)) {
+			// $(this).parent().css({'font-weight:600 !important;'});
 		}
 	});
 JAVASCRIPT) ?>
@@ -96,8 +102,8 @@ JAVASCRIPT) ?>
                             <i class="align-middle" data-feather="activity"></i> <span class="align-middle">Activity Management</span>
                         </a>
                         <ul id="activity" class="sidebar-dropdown list-unstyled collapse <?= (\yii\helpers\Url::current() == \yii\helpers\Url::to(['/activity/index']) || \yii\helpers\Url::current() == \yii\helpers\Url::to(['/subactivity/index'])) ? "show" : ""  ?>" data-bs-parent="#sidebar">
-                            <li class="sidebar-item"><a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/activity/index']) ?>"><i class="align-middle" data-feather="chevron-right"></i>Activity</a></li>
-                            <li class="sidebar-item"><a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/subactivity/index']) ?>"><i class="align-middle" data-feather="chevron-right"></i>Sub Activity</a></li>
+                            <li class="sidebar-subitem"><a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/activity/index']) ?>"><i class="align-middle" data-feather="chevron-right"></i>Activity</a></li>
+                            <li class="sidebar-subitem"><a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/subactivity/index']) ?>"><i class="align-middle" data-feather="chevron-right"></i>Sub Activity</a></li>
                         </ul>
                     </li>
 
@@ -197,6 +203,48 @@ JAVASCRIPT) ?>
             </main>
         </div>
     </div>
+
+    <div id="modal-form-ajax" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content"></div>
+        </div>
+    </div>
+
+    <div id="modal-delete-confirm" class="modal fade modal-blur" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-status bg-success"></div>
+                <div class="modal-body text-center py-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M12 9v2m0 4v.01"></path>
+                        <path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75"></path>
+                    </svg>
+                    <h3><?= Yii::t('app', 'Hapus Data') ?></h3>
+                    <div class="text-muted">
+                        Apakah anda yakin hapus? Data tidak dapat dikembalikan!
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="w-100">
+                        <div class="row">
+                            <div class="col">
+                                <a href="#" class="btn w-100" data-bs-dismiss="modal">Batal</a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="action-delete-confirm btn btn-danger w-100">Yakin</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <?= Html::script(
+        Json::encode((object) Yii::$app->session->getAllFlashes(true)),
+        ['id' => 'sessionFlashes', 'type' => 'application/json']
+    ) ?>
 
     <?php $this->endBody() ?>
 

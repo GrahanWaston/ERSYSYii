@@ -2,57 +2,31 @@
 
 namespace app\controllers;
 
-use app\models\Activity;
-use app\models\activitySearch;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
+use app\models\Activity;
 use yii\filters\VerbFilter;
+use app\models\activitySearch;
+use jeemce\models\MimikSearchV2;
+use yii\web\NotFoundHttpException;
+use app\controllers\BaseController;
+use jeemce\controllers\AppCrudTrait;
 
 /**
  * ActivityController implements the CRUD actions for Activity model.
  */
-class ActivityController extends Controller
+class ActivityController extends BaseController
 {
-    /**
-     * @inheritDoc
-     */
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-            ]
-        );
-    }
+    use AppCrudTrait;
 
-    /**
-     * Lists all Activity models.
-     *
-     * @return string
-     */
     public function actionIndex()
     {
-        $searchModel = new activitySearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        $query = Activity::find();
+        $searchModel = new MimikSearchV2(Activity::class, $this->request->queryParams, []);
+        $dataProvider = $searchModel->searchProvider($query);
+        $dataProvider->pagination->defaultPageSize = 10;
+        return $this->render('index', get_defined_vars());
     }
 
-    /**
-     * Displays a single Activity model.
-     * @param int $id ID
-     * @return string
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionView($id)
     {
         return $this->render('view', [
@@ -60,69 +34,32 @@ class ActivityController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new Activity model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return string|\yii\web\Response
-     */
-    public function actionCreate()
+    public function actionForm($id = null)
     {
-        $model = new Activity();
-
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+        if ($id) {
+            $model = $this->findModel($id);
         } else {
-            $model->loadDefaultValues();
+            $model = new Activity;
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Updates an existing Activity model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id ID
-     * @return string|\yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($result = $this->save($model)) {
+            return $result;
         }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        return $this->renderAjax('form', get_defined_vars());
     }
 
-    /**
-     * Deletes an existing Activity model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id ID
-     * @return \yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
+    public function actionStatus(array $selection, $value = null)
     {
-        $this->findModel($id)->delete();
-
+        $errors = [];
+        foreach ($selection as $id) {
+            $model = $this->findModel($id);
+            $model->status = $value;
+            $model->save();
+        }
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the Activity model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id ID
-     * @return Activity the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     protected function findModel($id)
     {
         if (($model = Activity::findOne(['id' => $id])) !== null) {

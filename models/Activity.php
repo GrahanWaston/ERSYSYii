@@ -14,7 +14,7 @@ use Yii;
  * @property Sda[] $sdas
  * @property Subactivities[] $subactivities
  */
-class Activity extends \yii\db\ActiveRecord
+class Activity extends \jeemce\models\Model
 {
     /**
      * {@inheritdoc}
@@ -24,6 +24,14 @@ class Activity extends \yii\db\ActiveRecord
         return 'activities';
     }
 
+    public static function status_options()
+    {
+        return [
+            0 => 'Deactive',
+            1 => 'Active',
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -31,6 +39,7 @@ class Activity extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'string', 'max' => 128],
+            [['name'], 'required'],
         ];
     }
 

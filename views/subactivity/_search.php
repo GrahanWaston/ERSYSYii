@@ -23,7 +23,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'activity_id') ?>
 
-    <?= $form->field($model, 'departement_id') ?>
+    <?= $form->field($model, 'department_id') ?>
 
     <?php // echo $form->field($model, 'position_id') ?>
 
