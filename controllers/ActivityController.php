@@ -5,7 +5,6 @@ namespace app\controllers;
 use yii\web\Controller;
 use app\models\Activity;
 use yii\filters\VerbFilter;
-use app\models\activitySearch;
 use jeemce\models\MimikSearchV2;
 use yii\web\NotFoundHttpException;
 use app\controllers\BaseController;

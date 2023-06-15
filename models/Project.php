@@ -11,7 +11,7 @@ use Yii;
  * @property string|null $code
  * @property string|null $name
  */
-class Project extends \yii\db\ActiveRecord
+class Project extends \jeemce\models\Model
 {
     /**
      * {@inheritdoc}
@@ -21,13 +21,21 @@ class Project extends \yii\db\ActiveRecord
         return 'projects';
     }
 
+    public static function status_options()
+    {
+        return [
+            0 => 'Deactive',
+            1 => 'Active',
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['code', 'name'], 'string', 'max' => 64],
+            [['code', 'name', 'value'], 'string', 'max' => 64],
         ];
     }
 
@@ -40,6 +48,9 @@ class Project extends \yii\db\ActiveRecord
             'id' => 'ID',
             'code' => 'Code',
             'name' => 'Name',
+            'value' => 'Value',
+            // 'status' => 'Status',
+            // 'client' => 'Client',
         ];
     }
 }

@@ -13,25 +13,11 @@ use yii\grid\GridView;
 $this->title = 'Activities';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="activity-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create Activity', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); 
-    ?>
-
-
-
-</div>
 
 <div class="container-fluid p-0">
     <div class="row justify-content-between align-items-center mb-3">
         <div class="col-auto">
-            <h1 class="h3 mb-3"><strong>Activity</strong> Management</h1>
+            <h1 class="h3 mb-3"><strong><?= Html::encode($this->title) ?></strong> Management</h1>
         </div>
         <div class="col-auto">
             <div class="input-group">
