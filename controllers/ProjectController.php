@@ -13,7 +13,7 @@ use jeemce\controllers\AppCrudTrait;
 /**
  * ProjectController implements the CRUD actions for Project model.
  */
-class ProjectController extends Controller
+class ProjectController extends BaseController
 {
     use AppCrudTrait;
 
@@ -25,7 +25,6 @@ class ProjectController extends Controller
         $dataProvider->pagination->defaultPageSize = 10;
         return $this->render('index', get_defined_vars());
     }
-
     
     public function actionForm($id = null)
     {
@@ -55,7 +54,7 @@ class ProjectController extends Controller
 
     protected function findModel($id)
     {
-        if (($model = Activity::findOne(['id' => $id])) !== null) {
+        if (($model = Project::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

@@ -1,7 +1,9 @@
 <?php
 
 use yii\helpers\Html;
-use app\models\Project;
+use app\models\Activity;
+use app\models\Position;
+use app\models\Department;
 use common\models\Category;
 use kartik\form\ActiveForm;
 
@@ -26,11 +28,12 @@ use kartik\form\ActiveForm;
 ]); ?>
 <?= Html::activeHiddenInput($model, 'status', ['value' => 'publish']) ?>
 
-<?= $form->field($model, 'code')->textInput(['maxlength' => true]) ?>
 <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-<?= $form->field($model, 'value')->textInput(['maxlength' => true]) ?>
-<?= $form->field($model, 'client')->textInput(['maxlength' => true]) ?>
-<?= $form->field($model, 'status')->dropDownList(Project::status_options()); ?>
+<?= $form->field($model, 'point')->textInput(['maxlength' => true]) ?>
+<?= $form->field($model, 'activity_id')->dropDownList(Activity::options('id', 'name', ['status' => 1])); ?>
+<?= $form->field($model, 'department_id')->dropDownList(Department::options('id', 'name')) ?>
+<?= $form->field($model, 'position_id')->checkboxList(Position::options('id', 'name')); ?>
+<?= $form->field($model, 'status')->dropDownList(Activity::status_options()); ?>
 
 <?php ActiveForm::end() ?>
 

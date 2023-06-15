@@ -35,7 +35,8 @@ class Project extends \jeemce\models\Model
     public function rules()
     {
         return [
-            [['code', 'name', 'value'], 'string', 'max' => 64],
+            [['code', 'name', 'client', 'status'], 'string', 'max' => 64],
+            [['value'], 'integer'],
         ];
     }
 
@@ -49,8 +50,8 @@ class Project extends \jeemce\models\Model
             'code' => 'Code',
             'name' => 'Name',
             'value' => 'Value',
-            // 'status' => 'Status',
-            // 'client' => 'Client',
+            'client' => 'Client',
+            'status' => 'Status',
         ];
     }
 }

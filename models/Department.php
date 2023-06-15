@@ -5,20 +5,19 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "activities".
+ * This is the model class for table "departments".
  *
  * @property int $id
  * @property string|null $name
- * @property int $status
  */
-class Activity extends \jeemce\models\Model
+class Department extends \jeemce\models\Model
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'activities';
+        return 'departments';
     }
 
     /**
@@ -27,7 +26,6 @@ class Activity extends \jeemce\models\Model
     public function rules()
     {
         return [
-            [['name', 'status'], 'required'],
             [['name'], 'string', 'max' => 255],
         ];
     }
@@ -40,15 +38,6 @@ class Activity extends \jeemce\models\Model
         return [
             'id' => 'ID',
             'name' => 'Name',
-            'status' => 'Status',
-        ];
-    }
-
-    public static function status_options()
-    {
-        return [
-            0 => 'Deactive',
-            1 => 'Active',
         ];
     }
 }

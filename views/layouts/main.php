@@ -24,13 +24,15 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 
 <?php $this->registerJs(<<<'JAVASCRIPT'
 	$('#sidebar').find('li.sidebar-item a.sidebar-link:not(.dropdown-toggle)').each(function() { 
+        console.log(window.location.pathname);
         if (window.location.pathname.includes(this.pathname)) {
 			$(this).parent().addClass('active');
 		}
 	});
+
 	$('#sidebar').find('li.sidebar-subitem a.sidebar-link:not(.dropdown-toggle)').each(function() { 
         if (window.location.pathname.includes(this.pathname)) {
-			// $(this).parent().css({'font-weight:600 !important;'});
+            $(this).addClass('fw-bold text-light').parent().parent().toggleClass('active show');
 		}
 	});
 JAVASCRIPT) ?>
@@ -97,11 +99,11 @@ JAVASCRIPT) ?>
                         </a>
                     </li>
 
-                    <li class="sidebar-item <?= (\yii\helpers\Url::current() == \yii\helpers\Url::to(['/activity/index']) || \yii\helpers\Url::current() == \yii\helpers\Url::to(['/subactivity/index'])) ? "active" : ""  ?>">
+                    <li class="sidebar-item ">
                         <a data-bs-target="#activity" data-bs-toggle="collapse" class="sidebar-link collapsed dropdown-toggle">
                             <i class="align-middle" data-feather="activity"></i> <span class="align-middle">Activity Management</span>
                         </a>
-                        <ul id="activity" class="sidebar-dropdown list-unstyled collapse <?= (\yii\helpers\Url::current() == \yii\helpers\Url::to(['/activity/index']) || \yii\helpers\Url::current() == \yii\helpers\Url::to(['/subactivity/index'])) ? "show" : ""  ?>" data-bs-parent="#sidebar">
+                        <ul id="activity" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-subitem"><a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/activity/index']) ?>"><i class="align-middle" data-feather="chevron-right"></i>Activity</a></li>
                             <li class="sidebar-subitem"><a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/subactivity/index']) ?>"><i class="align-middle" data-feather="chevron-right"></i>Sub Activity</a></li>
                         </ul>

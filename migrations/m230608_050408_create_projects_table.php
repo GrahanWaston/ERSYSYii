@@ -16,6 +16,9 @@ class m230608_050408_create_projects_table extends Migration
             'id' => $this->primaryKey(),
             'code' => $this->string(),
             'name' => $this->string(),
+            'value' => $this->integer(),
+            'client' => $this->string(),
+            'status' => $this->integer(),
         ]);
     }
 
