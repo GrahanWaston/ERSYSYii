@@ -33,14 +33,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     <i class="align-middle" data-feather="book"></i>
                     <span class="text-light">Add EMA</span>
                 </a>
-                <a href="<?= Url::toRoute(['status', 'value' => 0]); ?>" type="submit" class="btn btn-danger" onclick="deleteAllConfirm(this, event)">
-                    <i class="align-middle" data-feather="x-circle"></i>
-                    <span class="text-light">Deactive</span>
-                </a>
-                <a href="<?= Url::toRoute(['status', 'value' => 1]); ?>" type="submit" class="btn btn-success" onclick="deleteAllConfirm(this, event)">
-                    <i class="align-middle" data-feather="check-circle"></i>
-                    <span class="text-light">Activate</span>
-                </a>
             </div>
         </div>
 
@@ -56,16 +48,17 @@ $this->params['breadcrumbs'][] = $this->title;
                     'dataProvider' => $dataProvider,
                     'layout' => '{items}',
                     'options' => [
-                        'class' => 'table-responsive'
+                        'class' => 'table-responsive',
+                        'style' => 'overflow-x:auto;'
                     ],
                     'tableOptions' => ['class' => 'table table-hover'],
                     'columns' => [
-                        ['class' => yii\grid\CheckboxColumn::class],
+                        // ['class' => yii\grid\CheckboxColumn::class],
                         ['class' => yii\grid\SerialColumn::class],
                         [
                             'header' => 'Action',
-                            'headerOptions' => ['style' => 'width:75px', 'class' => 'text-center'],
-                            'contentOptions' => ['class' => 'd-flex justify-content-between'], 
+                            'headerOptions' => ['style' => 'width:75px;', 'class' => 'text-center'],
+                            // 'contentOptions' => ['class' => 'justify-content-between'], 
                             'class' => ActionColumn::className(),
                             'urlCreator' => function ($action, EMA $model, $key, $index, $column) {
                                 return Url::toRoute([$action, 'id' => $model->id]);
@@ -73,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'template' => '{form}{delete}',
                             'buttons' => [
                                 'form' => function ($url, $model) {
-                                    return Html::a('<i data-feather="edit-2" class="text-primary"></i>', $url, $options = [
+                                    return Html::a('<i data-feather="edit-2" class="text-primary me-2"></i>', $url, $options = [
                                         'onclick' => "modalFormAjax(this, event)",
                                         'data-pjax' => "0",
                                     ]);
@@ -86,12 +79,40 @@ $this->params['breadcrumbs'][] = $this->title;
                                 }
                             ]
                         ],
-                        'user_id',
-                        'name',
+                        [
+                            'attribute' => 'project.name',
+                            'contentOptions' => ['style' => 'min-width:300px;'],
+                        ],
+                        [
+                            'attribute' => 'activity.name',
+                            'contentOptions' => ['style' => 'min-width:100px;'],
+                        ],
+                        [
+                            'attribute' => 'subactivity.name',
+                            'contentOptions' => ['style' => 'min-width:300px;'],
+                        ],
+                        [
+                            'attribute' => 'month',
+                            'value' => function ($model, $key, $index, $grid) {
+                                    return date("F", mktime(0, 0, 0, $model->month, 10));
+                            },
+                        ], 
+                        'year',
+                        [
+                            'attribute' => 'status',
+                            'class' => BadgeColumn::class,
+                            'badgeOptions' => [
+                                0 => ['class' => 'badge bg-danger'],
+                                1 => ['class' => 'badge bg-success']
+                            ],
+                            'badgeValues' => EMA::status_options()
+                        ],
+                        'progress',
+                        [
+                            'attribute' => 'score_adjusment',
+                            'contentOptions' => ['style' => 'min-width:150px;'],
+                        ],
                         'point',
-                        'achieve',
-                        'bulan',
-                        'status',
                         'note',
                     ],
                 ]);

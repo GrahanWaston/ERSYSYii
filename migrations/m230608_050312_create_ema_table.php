@@ -19,6 +19,7 @@ class m230608_050312_create_ema_table extends Migration
             'activity_id' => $this->integer(),
             'subactivity_id' => $this->integer(),
             'month' => $this->integer(),
+            'year' => $this->integer(),
             'task' => $this->string(),
             'progress' => $this->integer(),
             'point' => $this->integer(),

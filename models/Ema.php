@@ -19,8 +19,8 @@ use Yii;
  * @property int|null $score_adjustment
  * @property string $timestamp
  *
- * @property Activities $activity
- * @property Subactivities $subactivity
+ * @property Activity $activity
+ * @property Subactivity $subactivity
  * @property Users $user
  */
 class EMA extends \jeemce\models\Model
@@ -40,13 +40,24 @@ class EMA extends \jeemce\models\Model
     public function rules()
     {
         return [
-            [['user_id', 'activity_id', 'subactivity_id', 'progress', 'point', 'status', 'score_adjustment'], 'integer'],
+            [['user_id', 'project_id', 'activity_id', 'subactivity_id', 'month', 'year', 'progress', 'point', 'status', 'score_adjustment'], 'safe'],
             [['timestamp'], 'safe'],
             [['task', 'note'], 'string', 'max' => 255],
-            [['activity_id'], 'exist', 'skipOnError' => true, 'targetClass' => Activities::class, 'targetAttribute' => ['activity_id' => 'id']],
-            [['subactivity_id'], 'exist', 'skipOnError' => true, 'targetClass' => Subactivities::class, 'targetAttribute' => ['subactivity_id' => 'id']],
+            [['activity_id'], 'exist', 'skipOnError' => true, 'targetClass' => Activity::class, 'targetAttribute' => ['activity_id' => 'id']],
+            [['subactivity_id'], 'exist', 'skipOnError' => true, 'targetClass' => Subactivity::class, 'targetAttribute' => ['subactivity_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
+    }
+    
+
+    /**
+     * Gets query for [[Project]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProject()
+    {
+        return $this->hasOne(Project::class, ['id' => 'project_id']);
     }
 
     /**
@@ -56,7 +67,7 @@ class EMA extends \jeemce\models\Model
      */
     public function getActivity()
     {
-        return $this->hasOne(Activities::class, ['id' => 'activity_id']);
+        return $this->hasOne(Activity::class, ['id' => 'activity_id']);
     }
 
     /**
@@ -66,7 +77,7 @@ class EMA extends \jeemce\models\Model
      */
     public function getSubactivity()
     {
-        return $this->hasOne(Subactivities::class, ['id' => 'subactivity_id']);
+        return $this->hasOne(Subactivity::class, ['id' => 'subactivity_id']);
     }
 
     /**

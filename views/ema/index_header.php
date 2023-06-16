@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-use app\models\Activity;
+use app\models\EMA;
 use kartik\form\ActiveForm;
 
 /**
@@ -63,7 +63,7 @@ $form = ActiveForm::begin([
 <div class="d-grid d-md-flex gap-2">
     <div class="col-md-auto">
         <div class="input-group">
-            <?= $form->field($searchModel, 'status')->dropDownList(Activity::status_options(), [
+            <?= $form->field($searchModel, 'status')->dropDownList(EMA::status_options(), [
                 'prompt' => 'Status Filter',
                 'onchange' => "$(this.form).trigger('submit')"
             ])->label(false); ?>

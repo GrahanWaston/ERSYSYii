@@ -1,5 +1,6 @@
 <?php
 
+use app\models\EMA;
 use yii\helpers\Html;
 use app\models\Project;
 use app\models\Activity;
@@ -31,6 +32,10 @@ use kartik\form\ActiveForm;
 <?= $form->field($model, 'project_id')->dropDownList(Project::options('id', 'name')) ?>
 <?= $form->field($model, 'activity_id')->dropDownList(Activity::options('id', 'name')) ?>
 <?= $form->field($model, 'subactivity_id')->dropDownList(Subactivity::options('id', 'name')) ?>
+<?= $form->field($model, 'month')->dropDownList(EMA::month_options('id', 'name')) ?>
+<?= $form->field($model, 'year')->dropDownList(EMA::year_options('id', 'name')) ?>
+<?= $form->field($model, 'task')->textInput() ?>
+<?= $form->field($model, 'progress')->textInput() ?>
 
 <?php ActiveForm::end() ?>
 

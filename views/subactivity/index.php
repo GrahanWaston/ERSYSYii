@@ -65,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'header' => 'Action',
                             'headerOptions' => ['style' => 'width:75px', 'class' => 'text-center'],
-                            'contentOptions' => ['class' => 'd-flex justify-content-between'], 
+                            // 'contentOptions' => ['class' => 'justify-content-between'], 
                             'class' => ActionColumn::className(),
                             'urlCreator' => function ($action, Subactivity $model, $key, $index, $column) {
                                 return Url::toRoute([$action, 'id' => $model->id]);
@@ -73,7 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'template' => '{form}{delete}',
                             'buttons' => [
                                 'form' => function ($url, $model) {
-                                    return Html::a('<i data-feather="edit-2" class="text-primary"></i>', $url, $options = [
+                                    return Html::a('<i data-feather="edit-2" class="text-primary me-2"></i>', $url, $options = [
                                         'onclick' => "modalFormAjax(this, event)",
                                         'data-pjax' => "0",
                                     ]);
