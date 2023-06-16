@@ -23,55 +23,55 @@ class m230608_050307_create_subactivities_table extends Migration
         ]);
 
         // creates index for column `activity_id`
-        // $this->createIndex(
-        //     'index_subactivity_activity_id',
-        //     'subactivities',
-        //     'activity_id'
-        // );
+        $this->createIndex(
+            'index_subactivity_activity_id',
+            'subactivities',
+            'activity_id'
+        );
 
         // creates index for column `department_id`
-        // $this->createIndex(
-        //     'index_subactivity_department_id',
-        //     'subactivities',
-        //     'department_id'
-        // );
+        $this->createIndex(
+            'index_subactivity_department_id',
+            'subactivities',
+            'department_id'
+        );
 
         // creates index for column `position_id`
-        // $this->createIndex(
-        //     'index_subactivity_position_id',
-        //     'subactivities',
-        //     'position_id'
-        // );
+        $this->createIndex(
+            'index_subactivity_position_id',
+            'subactivities',
+            'position_id'
+        );
 
         // add foreign key for table `activities`
-        // $this->addForeignKey(
-        //     'fk_subactivity_activity_id',
-        //     'activities',
-        //     'id',
-        //     'subactivities',
-        //     'activity_id',
-        //     'CASCADE'
-        // );
+        $this->addForeignKey(
+            'fk_subactivity_activity_id',
+            'subactivities',
+            'activity_id',
+            'activities',
+            'id',
+            'CASCADE'
+        );
 
         // add foreign key for table `departments`
-        // $this->addForeignKey(
-        //     'fk_subactivity_department_id',
-        //     'departments',
-        //     'id',
-        //     'subactivities',
-        //     'department_id',
-        //     'CASCADE'
-        // );
+        $this->addForeignKey(
+            'fk_subactivity_department_id',
+            'subactivities',
+            'department_id',
+            'departments',
+            'id',
+            'CASCADE'
+        );
 
         // add foreign key for table `positions`
-        // $this->addForeignKey(
-        //     'fk_subactivity_position_id',
-        //     'positions',
-        //     'id',
-        //     'subactivities',
-        //     'position_id',
-        //     'CASCADE'
-        // );
+        $this->addForeignKey(
+            'fk_subactivity_position_id',
+            'subactivities',
+            'position_id',
+            'positions',
+            'id',
+            'CASCADE'
+        );
     }
 
     /**

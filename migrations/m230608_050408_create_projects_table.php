@@ -13,10 +13,11 @@ class m230608_050408_create_projects_table extends Migration
     public function safeUp()
     {
         $this->createTable('{{%projects}}', [
-            'id' => $this->primaryKey(),
-            'code' => $this->string(),
-            'name' => $this->string(),
-            'value' => $this->integer(),
+            'id'     => $this->primaryKey(),
+            'code'   => $this->string(),
+            'name'   => $this->string(),
+            'value'  => $this->integer(),
+            'year'   => $this->integer(),
             'client' => $this->string(),
             'status' => $this->integer(),
         ]);

@@ -15,17 +15,17 @@ use Yii;
  * @property int|null $progress
  * @property int|null $point
  * @property string|null $note
- * @property string|null $status
+ * @property int|null $status
  * @property int|null $score_adjustment
- * @property string|null $created_at
- * @property string|null $Updated_at
+ * @property string $timestamp
  *
  * @property Activities $activity
  * @property Subactivities $subactivity
  * @property Users $user
  */
-class Ema extends \yii\db\ActiveRecord
+class EMA extends \jeemce\models\Model
 {
+    use EMATrait;
     /**
      * {@inheritdoc}
      */
@@ -40,34 +40,12 @@ class Ema extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'activity_id', 'subactivity_id', 'progress', 'point', 'score_adjustment'], 'integer'],
-            [['task', 'note'], 'string'],
-            [['created_at', 'Updated_at'], 'safe'],
-            [['status'], 'string', 'max' => 32],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['user_id' => 'id']],
+            [['user_id', 'activity_id', 'subactivity_id', 'progress', 'point', 'status', 'score_adjustment'], 'integer'],
+            [['timestamp'], 'safe'],
+            [['task', 'note'], 'string', 'max' => 255],
             [['activity_id'], 'exist', 'skipOnError' => true, 'targetClass' => Activities::class, 'targetAttribute' => ['activity_id' => 'id']],
             [['subactivity_id'], 'exist', 'skipOnError' => true, 'targetClass' => Subactivities::class, 'targetAttribute' => ['subactivity_id' => 'id']],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'user_id' => 'User ID',
-            'activity_id' => 'Activity ID',
-            'subactivity_id' => 'Subactivity ID',
-            'task' => 'Task',
-            'progress' => 'Progress',
-            'point' => 'Point',
-            'note' => 'Note',
-            'status' => 'Status',
-            'score_adjustment' => 'Score Adjustment',
-            'created_at' => 'Created At',
-            'Updated_at' => 'Updated At',
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 

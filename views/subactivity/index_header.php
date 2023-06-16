@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-use app\models\Activity;
+use app\models\Subactivity;
 use kartik\form\ActiveForm;
 
 /**
@@ -20,6 +20,7 @@ if (Yii::$app->user->can('status,status-all') && isset($modelClass)) {
         $bulkActions[Url::toRoute(['status-all', 'status' => $k])] = Yii::t('app', "Status {$v}");
     }
 }
+
 if (Yii::$app->user->can('delete,delete-all')) {
     $bulkActions[Url::toRoute(['delete-all'])] = Yii::t('app', 'Hapus');
 }
@@ -31,7 +32,7 @@ $form = ActiveForm::begin([
     'method' => 'GET',
     'type' => ActiveForm::TYPE_INLINE,
     'options' => [
-        'class' => 'card-header d-flex flex-wrap align-items-center',
+        'class' => 'justify-content-start justify-content-md-end',
         'data-pjax' => 1
     ]
 ]);
@@ -41,7 +42,7 @@ $form = ActiveForm::begin([
     <?= Html::dropDownList(null, null, $bulkActions, [
         'form' => 'bulk-action',
         'prompt' => 'Bulk Action ...',
-        'class' => 'form-select w-auto me-2 mb-2 mb-md-0 flex-grow-1 flex-md-grow-0',
+        'class' => ''
     ]) ?>
 
     <?= Html::a(Yii::t('app', 'Apply'), '#', [
@@ -59,21 +60,28 @@ $form = ActiveForm::begin([
     ) ?>
 <?php } ?>
 
-<div class="me-md-auto mr-md-auto"></div>
+<div class="d-grid d-md-flex gap-2">
+    <div class="col-md-auto">
+        <div class="input-group">
+            <?= $form->field($searchModel, 'status')->dropDownList(Subactivity::status_options(), [
+                'prompt' => 'Status Filter',
+                'onchange' => "$(this.form).trigger('submit')"
+            ])->label(false); ?>
+        </div>
+    </div>
 
-<?= $form->field($searchModel, 'status')->dropDownList(Activity::status_options(), [
-    'prompt' => 'STATUS',
-    'onchange' => "$(this.form).trigger('submit')"
-])->label(false); ?>
+    <div class="col-md-auto">
+        <div class="input-group">
+            <?= Html::input('search', 'search', $searchModel->search ?? '', [
+                'class' => 'form-control',
+                'placeholder' => Yii::t('app', 'Keywords...'),
+            ]) ?>   
 
-<div class="input-group w-auto flex-grow-1 flex-md-grow-0">
-    <?= Html::input('search', 'search', $searchModel->search ?? '', [
-        'class' => 'form-control',
-        'placeholder' => Yii::t('app', 'Pencarian ...'),
-    ]) ?>
-    <button class="btn btn-default btn-outline-dark" type="submit">
-        <i class="bi bi-search"></i>
-    </button>
+            <div class="input-group-append">
+                <button class="btn btn-primary btn-icon" type="submit">Search</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <?php

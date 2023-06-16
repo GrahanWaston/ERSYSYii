@@ -10,6 +10,7 @@ class m230608_050242_create_users_table extends Migration
     /**
      * {@inheritdoc}
      */
+    
     // pk: auto-incremental primary key type (“int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY”).
     // string: string type (“varchar(255)”).
     // text: a long string type (“text”).

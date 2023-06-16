@@ -24,7 +24,6 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 
 <?php $this->registerJs(<<<'JAVASCRIPT'
 	$('#sidebar').find('li.sidebar-item a.sidebar-link:not(.dropdown-toggle)').each(function() { 
-        console.log(window.location.pathname);
         if (window.location.pathname.includes(this.pathname)) {
 			$(this).parent().addClass('active');
 		}
@@ -32,7 +31,8 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 
 	$('#sidebar').find('li.sidebar-subitem a.sidebar-link:not(.dropdown-toggle)').each(function() { 
         if (window.location.pathname.includes(this.pathname)) {
-            $(this).addClass('fw-bold text-light').parent().parent().toggleClass('active show');
+            $(this).addClass('text-light').parent().parent().toggleClass('active show');
+            $(this).parent().parent().parent().toggleClass('active');
 		}
 	});
 JAVASCRIPT) ?>
@@ -71,6 +71,7 @@ JAVASCRIPT) ?>
     <div id="wait" class="wait">
         <div class="spin" style="margin-top: 15px;"></div>
     </div>
+
     <div class="wrapper">
         <nav id="sidebar" class="sidebar js-sidebar">
             <div class="sidebar-content js-simplebar">
@@ -93,13 +94,13 @@ JAVASCRIPT) ?>
                         Menu Management
                     </li>
 
-                    <li class="sidebar-item ">
+                    <li class="sidebar-item">
                         <a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/project/index']) ?>">
                             <i class="align-middle" data-feather="server"></i> <span class="align-middle">Project Management</span>
                         </a>
                     </li>
 
-                    <li class="sidebar-item ">
+                    <li class="sidebar-item">
                         <a data-bs-target="#activity" data-bs-toggle="collapse" class="sidebar-link collapsed dropdown-toggle">
                             <i class="align-middle" data-feather="activity"></i> <span class="align-middle">Activity Management</span>
                         </a>
@@ -110,7 +111,7 @@ JAVASCRIPT) ?>
                     </li>
 
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="management-ema.html">
+                        <a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/ema/index']) ?>">
                             <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">EMA Management</span>
                         </a>
                     </li>
@@ -251,172 +252,172 @@ JAVASCRIPT) ?>
     <?php $this->endBody() ?>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
-            var gradient = ctx.createLinearGradient(0, 0, 0, 225);
-            gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
-            gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
-            // Line chart
-            new Chart(document.getElementById("chartjs-dashboard-line"), {
-                type: "line",
-                data: {
-                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                    datasets: [{
-                        label: "Poin",
-                        fill: true,
-                        backgroundColor: gradient,
-                        borderColor: window.theme.warning,
-                        data: [
-                            2115,
-                            1562,
-                            1584,
-                            1892,
-                            1587,
-                            1923,
-                            2566,
-                            2448,
-                            2805,
-                            3438,
-                            2917,
-                            3327
-                        ]
-                    }]
-                },
-                options: {
-                    maintainAspectRatio: false,
-                    legend: {
-                        display: false
-                    },
-                    tooltips: {
-                        intersect: false
-                    },
-                    hover: {
-                        intersect: true
-                    },
-                    plugins: {
-                        filler: {
-                            propagate: false
-                        }
-                    },
-                    scales: {
-                        xAxes: [{
-                            reverse: true,
-                            gridLines: {
-                                color: "rgba(0,0,0,0.0)"
-                            }
-                        }],
-                        yAxes: [{
-                            ticks: {
-                                stepSize: 1000
-                            },
-                            display: true,
-                            borderDash: [3, 3],
-                            gridLines: {
-                                color: "rgba(0,0,0,0.0)"
-                            }
-                        }]
-                    }
-                }
-            });
-        });
+        // document.addEventListener("DOMContentLoaded", function() {
+        //     var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
+        //     var gradient = ctx.createLinearGradient(0, 0, 0, 225);
+        //     gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
+        //     gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
+        //     // Line chart
+        //     new Chart(document.getElementById("chartjs-dashboard-line"), {
+        //         type: "line",
+        //         data: {
+        //             labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        //             datasets: [{
+        //                 label: "Poin",
+        //                 fill: true,
+        //                 backgroundColor: gradient,
+        //                 borderColor: window.theme.warning,
+        //                 data: [
+        //                     2115,
+        //                     1562,
+        //                     1584,
+        //                     1892,
+        //                     1587,
+        //                     1923,
+        //                     2566,
+        //                     2448,
+        //                     2805,
+        //                     3438,
+        //                     2917,
+        //                     3327
+        //                 ]
+        //             }]
+        //         },
+        //         options: {
+        //             maintainAspectRatio: false,
+        //             legend: {
+        //                 display: false
+        //             },
+        //             tooltips: {
+        //                 intersect: false
+        //             },
+        //             hover: {
+        //                 intersect: true
+        //             },
+        //             plugins: {
+        //                 filler: {
+        //                     propagate: false
+        //                 }
+        //             },
+        //             scales: {
+        //                 xAxes: [{
+        //                     reverse: true,
+        //                     gridLines: {
+        //                         color: "rgba(0,0,0,0.0)"
+        //                     }
+        //                 }],
+        //                 yAxes: [{
+        //                     ticks: {
+        //                         stepSize: 1000
+        //                     },
+        //                     display: true,
+        //                     borderDash: [3, 3],
+        //                     gridLines: {
+        //                         color: "rgba(0,0,0,0.0)"
+        //                     }
+        //                 }]
+        //             }
+        //         }
+        //     });
+        // });
     </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Pie chart
-            new Chart(document.getElementById("chartjs-dashboard-pie"), {
-                type: "pie",
-                data: {
-                    labels: ["Chrome", "Firefox", "IE"],
-                    datasets: [{
-                        data: [47, 53],
-                        backgroundColor: [
-                            window.theme.dark,
-                            window.theme.warning
-                        ],
-                        borderWidth: 5
-                    }]
-                },
-                options: {
-                    responsive: !window.MSInputMethodContext,
-                    maintainAspectRatio: false,
-                    legend: {
-                        display: false
-                    },
-                    cutoutPercentage: 75
-                }
-            });
-        });
+        // document.addEventListener("DOMContentLoaded", function() {
+        //     // Pie chart
+        //     new Chart(document.getElementById("chartjs-dashboard-pie"), {
+        //         type: "pie",
+        //         data: {
+        //             labels: ["Chrome", "Firefox", "IE"],
+        //             datasets: [{
+        //                 data: [47, 53],
+        //                 backgroundColor: [
+        //                     window.theme.dark,
+        //                     window.theme.warning
+        //                 ],
+        //                 borderWidth: 5
+        //             }]
+        //         },
+        //         options: {
+        //             responsive: !window.MSInputMethodContext,
+        //             maintainAspectRatio: false,
+        //             legend: {
+        //                 display: false
+        //             },
+        //             cutoutPercentage: 75
+        //         }
+        //     });
+        // });
     </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Pie chart
-            new Chart(document.getElementById("chartjs-dashboard-pie-sda"), {
-                type: "pie",
-                data: {
-                    labels: ["Chrome", "Firefox", "IE"],
-                    datasets: [{
-                        data: [47, 53],
-                        backgroundColor: [
-                            window.theme.dark,
-                            window.theme.warning
-                        ],
-                        borderWidth: 5
-                    }]
-                },
-                options: {
-                    responsive: !window.MSInputMethodContext,
-                    maintainAspectRatio: false,
-                    legend: {
-                        display: false
-                    },
-                    cutoutPercentage: 75
-                }
-            });
-        });
+        // document.addEventListener("DOMContentLoaded", function() {
+        //     // Pie chart
+        //     new Chart(document.getElementById("chartjs-dashboard-pie-sda"), {
+        //         type: "pie",
+        //         data: {
+        //             labels: ["Chrome", "Firefox", "IE"],
+        //             datasets: [{
+        //                 data: [47, 53],
+        //                 backgroundColor: [
+        //                     window.theme.dark,
+        //                     window.theme.warning
+        //                 ],
+        //                 borderWidth: 5
+        //             }]
+        //         },
+        //         options: {
+        //             responsive: !window.MSInputMethodContext,
+        //             maintainAspectRatio: false,
+        //             legend: {
+        //                 display: false
+        //             },
+        //             cutoutPercentage: 75
+        //         }
+        //     });
+        // });
     </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Bar chart
-            new Chart(document.getElementById("chartjs-dashboard-bar"), {
-                type: "bar",
-                data: {
-                    labels: ["1", "2", "3", "4", "5", "6", "7"],
-                    datasets: [{
-                        label: "This year",
-                        backgroundColor: window.theme.warning,
-                        borderColor: window.theme.dark,
-                        hoverBackgroundColor: window.theme.success,
-                        hoverBorderColor: window.theme.warning,
-                        data: [54, 67, 41, 55, 62, 45, 55],
-                        barPercentage: .75,
-                        categoryPercentage: .5
-                    }]
-                },
-                options: {
-                    maintainAspectRatio: false,
-                    legend: {
-                        display: false
-                    },
-                    scales: {
-                        yAxes: [{
-                            gridLines: {
-                                display: false
-                            },
-                            stacked: false,
-                            ticks: {
-                                stepSize: 20
-                            }
-                        }],
-                        xAxes: [{
-                            stacked: false,
-                            gridLines: {
-                                color: "transparent"
-                            }
-                        }]
-                    }
-                }
-            });
-        });
+        // document.addEventListener("DOMContentLoaded", function() {
+        //     // Bar chart
+        //     new Chart(document.getElementById("chartjs-dashboard-bar"), {
+        //         type: "bar",
+        //         data: {
+        //             labels: ["1", "2", "3", "4", "5", "6", "7"],
+        //             datasets: [{
+        //                 label: "This year",
+        //                 backgroundColor: window.theme.warning,
+        //                 borderColor: window.theme.dark,
+        //                 hoverBackgroundColor: window.theme.success,
+        //                 hoverBorderColor: window.theme.warning,
+        //                 data: [54, 67, 41, 55, 62, 45, 55],
+        //                 barPercentage: .75,
+        //                 categoryPercentage: .5
+        //             }]
+        //         },
+        //         options: {
+        //             maintainAspectRatio: false,
+        //             legend: {
+        //                 display: false
+        //             },
+        //             scales: {
+        //                 yAxes: [{
+        //                     gridLines: {
+        //                         display: false
+        //                     },
+        //                     stacked: false,
+        //                     ticks: {
+        //                         stepSize: 20
+        //                     }
+        //                 }],
+        //                 xAxes: [{
+        //                     stacked: false,
+        //                     gridLines: {
+        //                         color: "transparent"
+        //                     }
+        //                 }]
+        //             }
+        //         }
+        //     });
+        // });
     </script>
 </body>
 

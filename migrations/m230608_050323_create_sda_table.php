@@ -28,55 +28,55 @@ class m230608_050323_create_sda_table extends Migration
         ]);
         
         // creates index for column `user_id`
-        // $this->createIndex(
-        //     'index_sda_user_id',
-        //     'sda',
-        //     'user_id'
-        // );
+        $this->createIndex(
+            'index_sda_user_id',
+            'sda',
+            'user_id'
+        );
         
         // creates index for column `activity_id`
-        // $this->createIndex(
-        //     'index_sda_activity_id',
-        //     'sda',
-        //     'activity_id'
-        // );
+        $this->createIndex(
+            'index_sda_activity_id',
+            'sda',
+            'activity_id'
+        );
         
         // creates index for column `subactivity_id`
-        // $this->createIndex(
-        //     'index_sda_subactivity_id',
-        //     'sda',
-        //     'subactivity_id'
-        // );
+        $this->createIndex(
+            'index_sda_subactivity_id',
+            'sda',
+            'subactivity_id'
+        );
 
         // add foreign key for table `users`
-        // $this->addForeignKey(
-        //     'fk_sda_user_id',
-        //     'users',
-        //     'id',
-        //     'sda',
-        //     'user_id',
-        //     'CASCADE'
-        // );
+        $this->addForeignKey(
+            'fk_sda_user_id',
+            'sda',
+            'user_id',
+            'users',
+            'id',
+            'CASCADE'
+        );
 
         // add foreign key for table `activities`
-        // $this->addForeignKey(
-        //     'fk_sda_activity_id',
-        //     'activities',
-        //     'id',
-        //     'sda',
-        //     'activity_id',
-        //     'CASCADE'
-        // );
+        $this->addForeignKey(
+            'fk_sda_activity_id',
+            'sda',
+            'activity_id',
+            'activities',
+            'id',
+            'CASCADE'
+        );
 
         // add foreign key for table `subactivities`
-        // $this->addForeignKey(
-        //     'fk_sda_subactivity_id',
-        //     'subactivities',
-        //     'id',
-        //     'sda',
-        //     'subactivity_id',
-        //     'CASCADE'
-        // );
+        $this->addForeignKey(
+            'fk_sda_subactivity_id',
+            'sda',
+            'subactivity_id',
+            'subactivities',
+            'id',
+            'CASCADE'
+        );
     }
 
     /**

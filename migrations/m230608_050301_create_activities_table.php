@@ -15,6 +15,7 @@ class m230608_050301_create_activities_table extends Migration
         $this->createTable('{{%activities}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string(),
+            'status' => $this->string(),
         ]);
     }
 

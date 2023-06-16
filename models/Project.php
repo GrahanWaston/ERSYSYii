@@ -13,20 +13,14 @@ use Yii;
  */
 class Project extends \jeemce\models\Model
 {
+    use ProjectTrait;
+
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
         return 'projects';
-    }
-
-    public static function status_options()
-    {
-        return [
-            0 => 'Deactive',
-            1 => 'Active',
-        ];
     }
 
     /**
@@ -36,22 +30,7 @@ class Project extends \jeemce\models\Model
     {
         return [
             [['code', 'name', 'client', 'status'], 'string', 'max' => 64],
-            [['value'], 'integer'],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'code' => 'Code',
-            'name' => 'Name',
-            'value' => 'Value',
-            'client' => 'Client',
-            'status' => 'Status',
+            [['value', 'year'], 'integer'],
         ];
     }
 }

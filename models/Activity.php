@@ -13,6 +13,8 @@ use Yii;
  */
 class Activity extends \jeemce\models\Model
 {
+    use ActivityTrait;
+    
     /**
      * {@inheritdoc}
      */
@@ -29,26 +31,6 @@ class Activity extends \jeemce\models\Model
         return [
             [['name', 'status'], 'required'],
             [['name'], 'string', 'max' => 255],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'name' => 'Name',
-            'status' => 'Status',
-        ];
-    }
-
-    public static function status_options()
-    {
-        return [
-            0 => 'Deactive',
-            1 => 'Active',
         ];
     }
 }

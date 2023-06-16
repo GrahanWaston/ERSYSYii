@@ -7,12 +7,6 @@ use yii\db\Migration;
  */
 class m230608_050357_create_validations_table extends Migration
 {
-    // Validations	
-    // ID	int(32)
-    // task_id	int(33)
-    // point	int(34)
-    // note	varchar(256)
-
     /**
      * {@inheritdoc}
      */
@@ -26,21 +20,21 @@ class m230608_050357_create_validations_table extends Migration
         ]);
 
         // creates index for column `subactivity_id`
-        // $this->createIndex(
-        //     'index_validation_subactivity_id',
-        //     'validations',
-        //     'subactivity_id'
-        // );
+        $this->createIndex(
+            'index_validation_subactivity_id',
+            'validations',
+            'subactivity_id'
+        );
 
         // add foreign key for table `subactivities`
-        // $this->addForeignKey(
-        //     'fk_validation_subactivity_id',
-        //     'subactivities',
-        //     'id',
-        //     'validations',
-        //     'subactivity_id',
-        //     'CASCADE'
-        // );
+        $this->addForeignKey(
+            'fk_validation_subactivity_id',
+            'validations',
+            'subactivity_id',
+            'subactivities',
+            'id',
+            'CASCADE'
+        );
     }
 
     /**

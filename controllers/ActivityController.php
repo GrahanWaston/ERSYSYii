@@ -23,6 +23,7 @@ class ActivityController extends BaseController
         $searchModel = new MimikSearchV2(Activity::class, $this->request->queryParams, []);
         $dataProvider = $searchModel->searchProvider($query);
         $dataProvider->pagination->defaultPageSize = 10;
+        $dataProvider->sort = false;
         return $this->render('index', get_defined_vars());
     }
 
