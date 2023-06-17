@@ -29,6 +29,10 @@ class EmaController extends BaseController
     
     public function actionForm($id = null)
     {
+        /**
+         * point = (progress % * subactivity)
+         * score_adjusment = point - (score_adjustment)
+         */
         if ($id) {
             $model = $this->findModel($id);
         } else {

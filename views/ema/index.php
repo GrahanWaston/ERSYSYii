@@ -10,7 +10,7 @@ use jeemce\grid\BadgeColumn;
 /** @var yii\web\View $this */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'EMA';
+$this->title = 'Employee Monthly Activity (EMA)';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container-fluid p-0">
@@ -30,8 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="mt-3">
             <div class="d-flex flex-wrap gap-2">
                 <a href="<?= Url::toRoute(['form']); ?>" class="btn btn-primary" onclick="modalFormAjax(this, event)" data-pjax="0">
-                    <i class="align-middle" data-feather="book"></i>
-                    <span class="text-light">Add EMA</span>
+                    <span class="text-light"><i class="fa-solid fa-clipboard"></i> Create Task</span>
                 </a>
             </div>
         </div>
@@ -58,21 +57,39 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'header' => 'Action',
                             'headerOptions' => ['style' => 'width:75px;', 'class' => 'text-center'],
-                            // 'contentOptions' => ['class' => 'justify-content-between'], 
+                            'contentOptions' => ['class' => 'd-flex gap-2 justify-content-between'], 
                             'class' => ActionColumn::className(),
                             'urlCreator' => function ($action, EMA $model, $key, $index, $column) {
                                 return Url::toRoute([$action, 'id' => $model->id]);
                             },
-                            'template' => '{form}{delete}',
+                            'template' => '{form}{report}{validate}{invalidate}{delete}',
                             'buttons' => [
                                 'form' => function ($url, $model) {
-                                    return Html::a('<i data-feather="edit-2" class="text-primary me-2"></i>', $url, $options = [
+                                    return Html::a('<span class="text-primary"><i class="fa-solid fa-pen-to-square"></i></span>', $url, $options = [
+                                        'onclick' => "modalFormAjax(this, event)",
+                                        'data-pjax' => "0",
+                                    ]);
+                                },
+                                'report' => function ($url, $model) {
+                                    return Html::a('<span class="text-info"><i class="fa-solid fa-file"></i></span>', $url, $options = [
+                                        'onclick' => "modalFormAjax(this, event)",
+                                        'data-pjax' => "0",
+                                    ]);
+                                },
+                                'validate' => function ($url, $model) {
+                                    return Html::a('<span class="text-success"><i class="fa-solid fa-circle-check"></i></span>', $url, $options = [
+                                        'onclick' => "modalFormAjax(this, event)",
+                                        'data-pjax' => "0",
+                                    ]);
+                                },
+                                'invalidate' => function ($url, $model) {
+                                    return Html::a('<span class="text-warning"><i class="fa-solid fa-circle-xmark"></i></span>', $url, $options = [
                                         'onclick' => "modalFormAjax(this, event)",
                                         'data-pjax' => "0",
                                     ]);
                                 },
                                 'delete' => function ($url, $model) {
-                                    return Html::a('<i data-feather="trash" class="text-danger"></i>', $url, $options = [
+                                    return Html::a('<span class="text-danger"><i class="fa-solid fa-trash"></i></span>', $url, $options = [
                                         'onclick' => "deleteConfirm(this, event)",
                                         'data-pjax' => "0"
                                     ]);
@@ -81,25 +98,43 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                         [
                             'attribute' => 'project.name',
-                            'contentOptions' => ['style' => 'min-width:300px;'],
+                            'contentOptions' => [
+                                'style' => 'min-width:250px; vertical-align:top;'
+                            ],
                         ],
                         [
                             'attribute' => 'activity.name',
-                            'contentOptions' => ['style' => 'min-width:100px;'],
+                            'contentOptions' => [
+                                'style' => 'min-width:125px; vertical-align:top;'
+                            ],
                         ],
                         [
                             'attribute' => 'subactivity.name',
-                            'contentOptions' => ['style' => 'min-width:300px;'],
+                            'contentOptions' => [
+                                'style' => 'min-width:250px; vertical-align:top;'
+                            ],
                         ],
                         [
                             'attribute' => 'month',
+                            'contentOptions' => [
+                                'style' => 'min-width:auto; vertical-align:top;'
+                            ],
                             'value' => function ($model, $key, $index, $grid) {
                                     return date("F", mktime(0, 0, 0, $model->month, 10));
                             },
                         ], 
-                        'year',
+                        [
+                            'attribute' => 'year',
+                            'contentOptions' => [
+                                'style' => 'min-width:auto; vertical-align:top;'
+                            ],
+                        ],
                         [
                             'attribute' => 'status',
+                            'contentOptions' => [
+                                'style' => 'min-width:auto; vertical-align:top;',
+                                'class' => 'text-center'
+                            ],
                             'class' => BadgeColumn::class,
                             'badgeOptions' => [
                                 0 => ['class' => 'badge bg-danger'],
@@ -110,10 +145,22 @@ $this->params['breadcrumbs'][] = $this->title;
                         'progress',
                         [
                             'attribute' => 'score_adjusment',
-                            'contentOptions' => ['style' => 'min-width:150px;'],
+                            'contentOptions' => [
+                                'style' => 'min-width:150px; vertical-align:top;'
+                            ],
                         ],
-                        'point',
-                        'note',
+                        [
+                            'attribute' => 'point',
+                            'contentOptions' => [
+                                'style' => 'min-width:auto; vertical-align:top;'
+                            ],
+                        ],
+                        [
+                            'attribute' => 'note',
+                            'contentOptions' => [
+                                'style' => 'min-width:auto; vertical-align:top;'
+                            ],
+                        ],
                     ],
                 ]);
             ?>

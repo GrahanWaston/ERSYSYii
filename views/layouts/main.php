@@ -58,6 +58,11 @@ JAVASCRIPT) ?>
 
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
 
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css" integrity="sha512-SgaqKKxJDQ/tAUAAXzvxZz33rmn7leYDYfBP+YoMRSENhf3zJyx3SBASt/OfeQwBHA1nxMis7mM3EV/oYT6Fdw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <title>JMC Employee Report System</title>
 
     <style>
@@ -86,7 +91,8 @@ JAVASCRIPT) ?>
 
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/site/index']) ?>">
-                            <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+                            <i class="fa-solid fa-gauge align-middle fs-4"></i>
+                            <span class="align-middle">Dashboard</span>
                         </a>
                     </li>
 
@@ -96,35 +102,40 @@ JAVASCRIPT) ?>
 
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/project/index']) ?>">
-                            <i class="align-middle" data-feather="server"></i> <span class="align-middle">Project Management</span>
+                            <i class="fa-solid fa-briefcase align-middle fs-4"></i>
+                            <span class="align-middle">Project Management</span>
                         </a>
                     </li>
 
                     <li class="sidebar-item">
                         <a data-bs-target="#activity" data-bs-toggle="collapse" class="sidebar-link collapsed dropdown-toggle">
-                            <i class="align-middle" data-feather="activity"></i> <span class="align-middle">Activity Management</span>
+                            <i class="fa-solid fa-clipboard-check align-middle fs-4"></i>
+                            <span class="align-middle">Activity Management</span>
                         </a>
                         <ul id="activity" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-subitem"><a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/activity/index']) ?>"><i class="align-middle" data-feather="chevron-right"></i>Activity</a></li>
-                            <li class="sidebar-subitem"><a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/subactivity/index']) ?>"><i class="align-middle" data-feather="chevron-right"></i>Sub Activity</a></li>
+                            <li class="sidebar-subitem"><a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/subactivity/index']) ?>"><i class="align-middle" data-feather="chevron-right"></i>Subactivity</a></li>
                         </ul>
                     </li>
 
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/ema/index']) ?>">
-                            <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">EMA Management</span>
+                            <i class="fa-solid fa-clipboard-list align-middle fs-4"></i>
+                            <span class="align-middle">Employee Monthly Activity</span>
                         </a>
                     </li>
 
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="management-sda.html">
-                            <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">SDA Management</span>
+                            <i class="fa-solid fa-clipboard-list align-middle fs-4"></i>
+                            <span class="align-middle">Sales Daily Activity</span>
                         </a>
                     </li>
 
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="management-pa.html">
-                            <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">PA Management</span>
+                            <i class="fa-solid fa-clipboard-list align-middle fs-4"></i>
+                            <span class="align-middle">Performance Apraisal</span>
                         </a>
                     </li>
 
@@ -156,7 +167,8 @@ JAVASCRIPT) ?>
 
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="report.html">
-                            <i class="align-middle" data-feather="book"></i> <span class="align-middle">Production Cost Report</span>
+                            <i class="fa-solid fa-receipt align-middle fs-4"></i>
+                            <span class="align-middle">Production Cost Report</span>
                         </a>
                     </li>
                 </ul>
@@ -170,8 +182,9 @@ JAVASCRIPT) ?>
 
         <div class="main">
             <nav class="navbar navbar-expand navbar-light navbar-bg">
-                <a class="sidebar-toggle js-sidebar-toggle">
-                    <i class="hamburger align-self-center"></i>
+                <a class="sidebar-toggle js-sidebar-toggle text-decoration-none">
+                    <i class="fa-solid fa-bars align-self-center fs-3 text-dark"></i>
+                    <!-- <i class="hamburger align-self-center"></i> -->
                 </a>
                 <div>
                     <img src="<?= $assets->baseUrl ?>/img/icons/jmc.svg" height="15" class="mr" alt="">

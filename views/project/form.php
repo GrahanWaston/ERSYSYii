@@ -30,6 +30,7 @@ use kartik\form\ActiveForm;
 <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 <?= $form->field($model, 'value')->textInput(['maxlength' => true]) ?>
 <?= $form->field($model, 'client')->textInput(['maxlength' => true]) ?>
+<?= $form->field($model, 'year')->dropDownList(Project::year_options()) ?>
 <?= $form->field($model, 'status')->dropDownList(Project::status_options()); ?>
 
 <?php ActiveForm::end() ?>

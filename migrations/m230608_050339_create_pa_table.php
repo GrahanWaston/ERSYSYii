@@ -20,6 +20,8 @@ class m230608_050339_create_pa_table extends Migration
             'jobdesc' => $this->string(),
             'score_employee' => $this->float(),
             'timestamp' => $this->timestamp(),
+            'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
+            'updated_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
         ]);
         
         // creates index for column `user_id`

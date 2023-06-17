@@ -30,16 +30,16 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="mt-3">
             <div class="d-flex flex-wrap gap-2">
                 <a href="<?= Url::toRoute(['form']); ?>" class="btn btn-primary" onclick="modalFormAjax(this, event)" data-pjax="0">
-                    <i class="align-middle" data-feather="book"></i>
+                    <i class="fa-solid fa-briefcase"></i> 
                     <span class="text-light">Add Project</span>
                 </a>
-                <a href="<?= Url::toRoute(['status', 'value' => 0]); ?>" type="submit" class="btn btn-danger" onclick="deleteAllConfirm(this, event)">
-                    <i class="align-middle" data-feather="x-circle"></i>
-                    <span class="text-light">Deactive</span>
-                </a>
                 <a href="<?= Url::toRoute(['status', 'value' => 1]); ?>" type="submit" class="btn btn-success" onclick="deleteAllConfirm(this, event)">
-                    <i class="align-middle" data-feather="check-circle"></i>
+                    <i class="fa-regular fa-circle-check"></i>
                     <span class="text-light">Activate</span>
+                </a>
+                <a href="<?= Url::toRoute(['status', 'value' => 0]); ?>" type="submit" class="btn btn-danger" onclick="deleteAllConfirm(this, event)">
+                    <i class="fa-regular fa-circle-xmark"></i>
+                    <span class="text-light">Deactive</span>
                 </a>
             </div>
         </div>
@@ -65,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'header' => 'Action',
                             'headerOptions' => ['style' => 'width:75px', 'class' => 'text-center'],
-                            // 'contentOptions' => ['class' => 'justify-content-between'], 
+                            'contentOptions' => ['class' => 'd-flex gap-2 justify-content-between'], 
                             'class' => ActionColumn::className(),
                             'urlCreator' => function ($action, Project $model, $key, $index, $column) {
                                 return Url::toRoute([$action, 'id' => $model->id]);
@@ -73,23 +73,36 @@ $this->params['breadcrumbs'][] = $this->title;
                             'template' => '{form}{delete}',
                             'buttons' => [
                                 'form' => function ($url, $model) {
-                                    return Html::a('<i data-feather="edit-2" class="text-primary me-2"></i>', $url, $options = [
+                                    return Html::a('<span class="text-primary"><i class="fa-solid fa-pen-to-square"></i></span>', $url, $options = [
                                         'onclick' => "modalFormAjax(this, event)",
                                         'data-pjax' => "0",
                                     ]);
                                 },
                                 'delete' => function ($url, $model) {
-                                    return Html::a('<i data-feather="trash" class="text-danger"></i>', $url, $options = [
+                                    return Html::a('<span class="text-danger"><i class="fa-solid fa-trash"></i></span>', $url, $options = [
                                         'onclick' => "deleteConfirm(this, event)",
                                         'data-pjax' => "0"
                                     ]);
                                 }
                             ]
                         ],
-                        'name',
-                        'code',
+                        [
+                            'attribute' => 'name',
+                            'contentOptions' => [
+                                'style' => 'min-width:150px; vertical-align:top;'
+                            ],
+                        ],
+                        [
+                            'attribute' => 'code',
+                            'contentOptions' => [
+                                'style' => 'min-width:125px; vertical-align:top;'
+                            ],
+                        ],
                         [
                             'attribute' => 'value',
+                            'contentOptions' => [
+                                'style' => 'min-width:auto; vertical-align:top;'
+                            ],
                             'format' =>  [
                                 'currency',
                                 'Rupiah',
@@ -99,10 +112,23 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ],
                             ],
                         ],
-                        'year',
-                        'client',
+                        [
+                            'attribute' => 'year',
+                            'contentOptions' => [
+                                'style' => 'min-width:125px; vertical-align:top;'
+                            ],
+                        ],
+                        [
+                            'attribute' => 'client',
+                            'contentOptions' => [
+                                'style' => 'min-width:auto; vertical-align:top;'
+                            ],
+                        ],
                         [
                             'attribute' => 'status',
+                            'contentOptions' => [
+                                'style' => 'min-width:auto; vertical-align:top;'
+                            ],
                             'enableSorting' => false,
                             'class' => BadgeColumn::class,
                             'badgeOptions' => [

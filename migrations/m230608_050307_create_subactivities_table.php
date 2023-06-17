@@ -20,6 +20,8 @@ class m230608_050307_create_subactivities_table extends Migration
             'department_id' => $this->integer(),
             'position_id' => $this->integer(),
             'status' => $this->integer(),
+            'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
+            'updated_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
         ]);
 
         // creates index for column `activity_id`

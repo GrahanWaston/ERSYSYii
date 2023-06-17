@@ -26,7 +26,8 @@ class m230608_050312_create_ema_table extends Migration
             'note' => $this->string(),
             'status' => $this->integer(),
             'score_adjustment' => $this->integer(),
-            'timestamp' => $this->timestamp(),
+            'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
+            'updated_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
         ]);
 
         // creates index for column `user_id`

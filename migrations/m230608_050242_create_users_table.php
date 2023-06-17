@@ -36,6 +36,8 @@ class m230608_050242_create_users_table extends Migration
             'role' => $this->integer(),
             'monitoring' => $this->string(),
             'password' => $this->string(),
+            'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
+            'updated_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
         ]);
     }
 

@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `{{%projects}}`.
  */
-class m230608_050408_create_projects_table extends Migration
+class m230608_050311_create_projects_table extends Migration
 {
     /**
      * {@inheritdoc}
@@ -20,6 +20,8 @@ class m230608_050408_create_projects_table extends Migration
             'year'   => $this->integer(),
             'client' => $this->string(),
             'status' => $this->integer(),
+            'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
+            'updated_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
         ]);
     }
 

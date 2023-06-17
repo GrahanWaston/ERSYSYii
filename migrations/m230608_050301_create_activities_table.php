@@ -16,6 +16,8 @@ class m230608_050301_create_activities_table extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string(),
             'status' => $this->string(),
+            'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
+            'updated_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
         ]);
     }
 

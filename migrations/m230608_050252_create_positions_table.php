@@ -16,6 +16,8 @@ class m230608_050252_create_positions_table extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string(),
             'department_id' => $this->integer(),
+            'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
+            'updated_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
         ]);
 
         // creates index for column `department_id`

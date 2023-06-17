@@ -17,6 +17,8 @@ class m230608_050357_create_validations_table extends Migration
             'subactivity_id' => $this->integer(),
             'point' => $this->integer(),
             'note' => $this->string(),
+            'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
+            'updated_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
         ]);
 
         // creates index for column `subactivity_id`

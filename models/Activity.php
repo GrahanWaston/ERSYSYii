@@ -33,4 +33,14 @@ class Activity extends \jeemce\models\Model
             [['name'], 'string', 'max' => 255],
         ];
     }
+
+    /**
+     * Gets query for [[Subactivities]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSubactivityCount()
+    {
+        return $this->hasMany(Subactivity::class, ['id' => 'subactivity_id'])->count();
+    }
 }
