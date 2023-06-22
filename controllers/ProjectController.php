@@ -2,9 +2,7 @@
 
 namespace app\controllers;
 
-use yii\web\Controller;
 use app\models\Project;
-use yii\filters\VerbFilter;
 use jeemce\models\MimikSearchV2;
 use yii\web\NotFoundHttpException;
 use app\controllers\BaseController;

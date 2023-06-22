@@ -13,6 +13,7 @@ use Yii;
  */
 class Reference extends \jeemce\models\Model
 {
+    use ReferenceTrait;
     /**
      * {@inheritdoc}
      */
@@ -21,20 +22,13 @@ class Reference extends \jeemce\models\Model
         return 'references';
     }
 
-    public static function status_options()
-    {
-        return [
-            0 => 'Deactive',
-            1 => 'Active',
-        ];
-    }
-
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
+            [['name', 'score'], 'required'],
             [['name', 'status'], 'string', 'max' => 256],
             [['score'], 'integer'],
         ];
@@ -43,13 +37,5 @@ class Reference extends \jeemce\models\Model
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'name' => 'Name',
-            'score' => 'Score',
-            'status' => 'Status',
-        ];
-    }
+    
 }
