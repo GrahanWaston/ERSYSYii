@@ -4,7 +4,7 @@ return [
     'class' => 'yii\db\Connection',
     'dsn' => 'mysql:host=localhost;dbname=ersys',
     'username' => 'root',
-    'password' => 'password',
+    'password' => '',
     'charset' => 'utf8',
 
     // Schema cache options (for production environment)

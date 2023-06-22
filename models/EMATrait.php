@@ -63,4 +63,13 @@ trait EMATrait
             'timestamp' => 'Timestamp',
         ];
     }
+
+    public function beforeSave($insert)
+    {
+        if (!parent::beforeSave($insert)) {
+            return false;
+        }
+        $this->point = ($this->progress / 100) * $this->subactivity->point;
+        return true;
+    }
 }

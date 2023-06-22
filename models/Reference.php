@@ -5,13 +5,13 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "references".
+ * This is the model class for table "References".
  *
  * @property int $id
+ * @property string|null $code
  * @property string|null $name
- * @property float|null $score
  */
-class Reference extends \yii\db\ActiveRecord
+class Reference extends \jeemce\models\Model
 {
     /**
      * {@inheritdoc}
@@ -21,14 +21,22 @@ class Reference extends \yii\db\ActiveRecord
         return 'references';
     }
 
+    public static function status_options()
+    {
+        return [
+            0 => 'Deactive',
+            1 => 'Active',
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['score'], 'number'],
-            [['name'], 'string', 'max' => 256],
+            [['name', 'status'], 'string', 'max' => 256],
+            [['score'], 'integer'],
         ];
     }
 
@@ -41,6 +49,7 @@ class Reference extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'score' => 'Score',
+            'status' => 'Status',
         ];
     }
 }
