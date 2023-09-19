@@ -41,6 +41,6 @@ class Activity extends \jeemce\models\Model
      */
     public function getSubactivityCount()
     {
-        return $this->hasMany(Subactivity::class, ['id' => 'subactivity_id'])->count();
+        return $this->hasMany(Subactivity::class, ['activity_id' => 'id'])->count();
     }
 }

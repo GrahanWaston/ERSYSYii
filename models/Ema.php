@@ -26,6 +26,8 @@ use Yii;
 class EMA extends \jeemce\models\Model
 {
     use EMATrait;
+
+    public $total;
     /**
      * {@inheritdoc}
      */
@@ -45,7 +47,7 @@ class EMA extends \jeemce\models\Model
             [['task', 'note'], 'string', 'max' => 255],
             [['activity_id'], 'exist', 'skipOnError' => true, 'targetClass' => Activity::class, 'targetAttribute' => ['activity_id' => 'id']],
             [['subactivity_id'], 'exist', 'skipOnError' => true, 'targetClass' => Subactivity::class, 'targetAttribute' => ['subactivity_id' => 'id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['user_id' => 'id']],
+            // [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
     
@@ -88,5 +90,10 @@ class EMA extends \jeemce\models\Model
     public function getUser()
     {
         return $this->hasOne(Users::class, ['id' => 'user_id']);
+    }
+
+    public static function summary()
+    {
+        return static::find()->select(['*', 'SUM(point - score_adjustment) as total'])->groupBy(['user_id', 'month']);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\ema\controllers;
 
 use Yii;
 use app\models\Ema;
@@ -12,9 +12,9 @@ use app\controllers\BaseController;
 use jeemce\controllers\AppCrudTrait;
 
 /**
- * EmaController implements the CRUD actions for Ema model.
+ * Default controller for the `ema` module
  */
-class EmaController extends BaseController
+class DefaultController extends BaseController
 {
     use AppCrudTrait;
 

@@ -119,29 +119,65 @@ JAVASCRIPT) ?>
                     </li>
 
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/ema/index']) ?>">
+                        <a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/reference/index']) ?>">
+                            <i class="align-middle" data-feather="file-plus"></i> <span class="align-middle">Reference</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-header">
+                        Employee Section
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/ema']) ?>">
                             <i class="fa-solid fa-clipboard-list align-middle fs-4"></i>
-                            <span class="align-middle">Employee Monthly Activity</span>
+                            <span class="align-middle">Employee Monthly Activity (EMA)</span>
                         </a>
                     </li>
 
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="management-sda.html">
                             <i class="fa-solid fa-clipboard-list align-middle fs-4"></i>
-                            <span class="align-middle">Sales Daily Activity</span>
+                            <span class="align-middle">Sales Daily Activity (SDA)</span>
                         </a>
                     </li>
 
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="management-pa.html">
                             <i class="fa-solid fa-clipboard-list align-middle fs-4"></i>
-                            <span class="align-middle">Performance Apraisal</span>
+                            <span class="align-middle">Performance Apraisal (PA)</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-header">
+                        Report
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="report.html">
+                            <i class="fa-solid fa-receipt align-middle fs-4"></i>
+                            <span class="align-middle">Production Cost Report</span>
                         </a>
                     </li>
 
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/reference/index']) ?>">
-                            <i class="align-middle" data-feather="file-plus"></i> <span class="align-middle">Reference</span>
+                        <a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/ema/report']) ?>">
+                            <i class="fa-solid fa-receipt align-middle fs-4"></i>
+                            <span class="align-middle">EMA Report</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/report/sda']) ?>">
+                            <i class="fa-solid fa-receipt align-middle fs-4"></i>
+                            <span class="align-middle">SDA Report</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/report/pa']) ?>">
+                            <i class="fa-solid fa-receipt align-middle fs-4"></i>
+                            <span class="align-middle">PA Report</span>
                         </a>
                     </li>
 
@@ -158,17 +194,6 @@ JAVASCRIPT) ?>
                     <li class="sidebar-item ">
                         <a class="sidebar-link" href="management-session.html">
                             <i class=" align-middle" data-feather="clock"></i> <span class="align-middle">Session Management</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-header">
-                        Report
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="report.html">
-                            <i class="fa-solid fa-receipt align-middle fs-4"></i>
-                            <span class="align-middle">Production Cost Report</span>
                         </a>
                     </li>
                 </ul>
@@ -198,7 +223,7 @@ JAVASCRIPT) ?>
                             </a>
                             <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
                                 <i class="align-middle" data-feather="user"></i>
-                                <span class="text-dark">Waston</span>
+                                <span class="text-dark">JMC Developer</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>

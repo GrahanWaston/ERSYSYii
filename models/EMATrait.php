@@ -49,8 +49,11 @@ trait EMATrait
         return [
             'id' => 'ID',
             'user_id' => 'User',
+            'project_id' => 'Project ID',
             'project.name' => 'Project',
+            'activity_id' => 'Activity ID',
             'activity.name' => 'Activity',
+            'subactivity_id' => 'Subactivity ID',
             'subactivity.name' => 'Subactivity',
             'month' => 'Month',
             'year' => 'Year',

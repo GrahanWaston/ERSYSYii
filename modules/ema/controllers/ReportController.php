@@ -1,46 +1,50 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\ema\controllers;
 
-use Yii;
-use app\models\Ema;
+use app\models\EMA;
 use yii\web\Controller;
-use yii\filters\VerbFilter;
 use jeemce\models\MimikSearchV2;
 use yii\web\NotFoundHttpException;
 use app\controllers\BaseController;
 use jeemce\controllers\AppCrudTrait;
 
 /**
- * EmaController implements the CRUD actions for Ema model.
+ * Report controller for the `ema` module
  */
-class EmaController extends BaseController
+class ReportController extends BaseController
 {
     use AppCrudTrait;
-
+    /**
+     * Renders the index view for the module
+     * @return string
+     */
     public function actionIndex()
     {
-        $query = EMA::find();
+        $query = EMA::summary();
         $searchModel = new MimikSearchV2(EMA::class, $this->request->queryParams, []);
         $dataProvider = $searchModel->searchProvider($query);
         $dataProvider->pagination->defaultPageSize = 10;
         $dataProvider->sort = false;
         return $this->render('index', get_defined_vars());
     }
-    
-    public function actionForm($id = null)
-    {
-        /**
-         * point = (progress % * subactivity)
-         * score_adjusment = point - (score_adjustment)
-         */
+
+    public function actionShow($user_id, $month){
+        $page_title = "Show $user_id Activities on $month";
+        $query = EMA::find()->where(['user_id' => $user_id, 'month' => $month]);
+        $searchModel = new MimikSearchV2(EMA::class, $this->request->queryParams, []);
+        $dataProvider = $searchModel->searchProvider($query);
+        $dataProvider->pagination->defaultPageSize = 10;
+        $dataProvider->sort = false;
+        return $this->render('show', get_defined_vars());
+    }
+
+    public function actionForm($id){
         if ($id) {
             $model = $this->findModel($id);
         } else {
             $model = new Ema;
         }
-
-        $model->user_id = Yii::$app->user->identity;
 
         if ($result = $this->save($model)) return $result;
 

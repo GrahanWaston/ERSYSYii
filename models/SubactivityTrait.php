@@ -20,7 +20,7 @@ trait SubactivityTrait
             'point' => 'Point',
             'activity_id' => 'Activity Name',
             'department_id' => 'Department ID',
-            'position_id' => 'Position ID',
+            'position_id' => 'Position ID *load based on dept_id',
             'status' => 'Status',
             'activity.name' => 'Activity Name'
         ];

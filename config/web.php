@@ -11,6 +11,7 @@ $config = [
     ],
     'modules' => [
         'jeemce' => \jeemce\Module::class, // 1
+        'ema' => 'app\modules\ema\Module',
     ],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
