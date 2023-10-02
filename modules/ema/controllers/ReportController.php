@@ -3,6 +3,7 @@
 namespace app\modules\ema\controllers;
 
 use app\models\EMA;
+use app\models\Users;
 use yii\web\Controller;
 use jeemce\models\MimikSearchV2;
 use yii\web\NotFoundHttpException;
@@ -21,7 +22,7 @@ class ReportController extends BaseController
      */
     public function actionIndex()
     {
-        $query = EMA::summary();
+        $query = EMA::summary()->with('user');
         $searchModel = new MimikSearchV2(EMA::class, $this->request->queryParams, []);
         $dataProvider = $searchModel->searchProvider($query);
         $dataProvider->pagination->defaultPageSize = 10;
@@ -29,8 +30,10 @@ class ReportController extends BaseController
         return $this->render('index', get_defined_vars());
     }
 
-    public function actionShow($user_id, $month){
-        $page_title = "Show $user_id Activities on $month";
+    public function actionShow(int $user_id, string $month)
+    {
+        $user = Users::findOne($user_id);
+        $page_title = "Show '" . $user['name'] . "' Activities on " . date("F", mktime(0, 0, 0, $month, 10));
         $query = EMA::find()->where(['user_id' => $user_id, 'month' => $month]);
         $searchModel = new MimikSearchV2(EMA::class, $this->request->queryParams, []);
         $dataProvider = $searchModel->searchProvider($query);
@@ -39,7 +42,8 @@ class ReportController extends BaseController
         return $this->render('show', get_defined_vars());
     }
 
-    public function actionForm($id){
+    public function actionForm($id)
+    {
         if ($id) {
             $model = $this->findModel($id);
         } else {
@@ -49,6 +53,28 @@ class ReportController extends BaseController
         if ($result = $this->save($model)) return $result;
 
         return $this->renderAjax('form', get_defined_vars());
+    }
+
+    public function actionStatus(array $selection, $value = null)
+    {
+        $errors = [];
+        foreach ($selection as $id) {
+            $model = $this->findModel($id);
+            $model->status = $value;
+            $model->save();
+        }
+        return $this->redirect($this->request->referrer);
+    }
+
+    public function actionPrint(int $user_id, string $month)
+    {
+        $page_title = "Show $user_id Activities on $month";
+        $query = EMA::find()->with('activity')->where(['user_id' => $user_id, 'month' => $month]);
+        $searchModel = new MimikSearchV2(EMA::class, $this->request->queryParams, []);
+        $dataProvider = $searchModel->searchProvider($query);
+        $dataProvider->pagination->defaultPageSize = 10;
+        $dataProvider->sort = false;
+        return $this->render('print', get_defined_vars());
     }
 
     protected function findModel($id)

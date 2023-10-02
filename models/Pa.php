@@ -9,18 +9,24 @@ use Yii;
  *
  * @property int $id
  * @property int|null $user_id
- * @property int|null $reference_id
- * @property string|null $example_activity
- * @property string|null $jobdesk
- * @property int|null $score
- * @property string|null $created_at
- * @property string|null $updated_at
+ * @property int|null $activity_id
+ * @property int|null $subactivity_id
+ * @property string|null $task
+ * @property int|null $progress
+ * @property int|null $point
+ * @property string|null $note
+ * @property int|null $status
+ * @property int|null $score_adjustment
+ * @property string $timestamp
  *
- * @property References $reference
+ * @property Activity $activity
+ * @property Subactivity $subactivity
  * @property Users $user
  */
-class Pa extends \yii\db\ActiveRecord
+class PA extends \jeemce\models\Model
 {
+    use PATrait;
+    public $total;
     /**
      * {@inheritdoc}
      */
@@ -35,39 +41,12 @@ class Pa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'reference_id', 'score'], 'integer'],
-            [['example_activity', 'jobdesk'], 'string'],
-            [['created_at', 'updated_at'], 'safe'],
+            [['user_id', 'kpi_id'], 'integer'],
+            [['task', 'jobdesc'], 'string'],
+            [['created_at', 'updated_at', 'point', 'month', 'year'], 'safe'],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['user_id' => 'id']],
-            [['reference_id'], 'exist', 'skipOnError' => true, 'targetClass' => References::class, 'targetAttribute' => ['reference_id' => 'id']],
+            [['kpi_id'], 'exist', 'skipOnError' => true, 'targetClass' => KPI::class, 'targetAttribute' => ['kpi_id' => 'id']],
         ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'user_id' => 'User ID',
-            'reference_id' => 'Reference ID',
-            'example_activity' => 'Example Activity',
-            'jobdesk' => 'Jobdesk',
-            'score' => 'Score',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
-        ];
-    }
-
-    /**
-     * Gets query for [[Reference]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getReference()
-    {
-        return $this->hasOne(References::class, ['id' => 'reference_id']);
     }
 
     /**
@@ -79,4 +58,10 @@ class Pa extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Users::class, ['id' => 'user_id']);
     }
+
+    public function getKpi()
+    {
+        return $this->hasOne(KPI::class, ['id' => 'kpi_id']);
+    }
+
 }

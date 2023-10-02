@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Yii;
 use app\models\Subactivity;
 
 trait ActivityTrait
@@ -31,8 +32,14 @@ trait ActivityTrait
         return [
             'id' => 'ID',
             'name' => 'Name',
-            // 'subactivities' => 'Subactivities',
+            'department_id' => 'Department',
             'status' => 'Status',
         ];
+    }
+    
+
+    public static function getDataOptions()
+    {
+        return Activity::Options('id', 'name');
     }
 }

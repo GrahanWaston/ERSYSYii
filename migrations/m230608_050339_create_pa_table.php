@@ -15,10 +15,13 @@ class m230608_050339_create_pa_table extends Migration
         $this->createTable('{{%pa}}', [
             'id' => $this->primaryKey(),
             'user_id' => $this->integer(),
-            'reference_id' => $this->integer(),
-            'example_activity' => $this->text(),
+            'month' => $this->integer(),
+            'year' => $this->integer(),
+            'kpi_id' => $this->integer(),
+            'task' => $this->text(),
             'jobdesc' => $this->text(),
-            'score_employee' => $this->float(),
+            'point' => $this->float(),
+            'status' => $this->integer(),
             'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
             'updated_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
         ]);
@@ -30,11 +33,11 @@ class m230608_050339_create_pa_table extends Migration
             'user_id'
         );
         
-        // creates index for column `reference_id`
+        // creates index for column `kpi_id`
         $this->createIndex(
-            'index_pa_reference_id',
+            'index_pa_kpi_id',
             'pa',
-            'reference_id'
+            'kpi_id'
         );
 
         // add foreign key for table `users`
@@ -49,9 +52,9 @@ class m230608_050339_create_pa_table extends Migration
 
         // add foreign key for table `references`
         $this->addForeignKey(
-            'fk_pa_reference_id',
+            'fk_pa_kpi_id',
             'pa',
-            'reference_id',
+            'kpi_id',
             'references',
             'id',
             'CASCADE'

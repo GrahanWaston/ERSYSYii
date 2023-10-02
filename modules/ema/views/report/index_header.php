@@ -60,10 +60,12 @@ $form = ActiveForm::begin([
     ) ?>
 <?php } ?>
 
+
+
 <div class="d-grid d-md-flex gap-2">
     <div class="col-md-auto">
         <div class="input-group">
-            <?= $form->field($searchModel, 'status')->dropDownList(EMA::status_options(), [
+            <?= $form->field($searchModel, 'status')->dropDownList(EMA::achievement(), [
                 'prompt' => 'Status Filter',
                 'onchange' => "$(this.form).trigger('submit')"
             ])->label(false); ?>
@@ -75,7 +77,7 @@ $form = ActiveForm::begin([
             <?= Html::input('search', 'search', $searchModel->search ?? '', [
                 'class' => 'form-control',
                 'placeholder' => Yii::t('app', 'Keywords...'),
-            ]) ?>   
+            ]) ?>
 
             <div class="input-group-append">
                 <button class="btn btn-primary btn-icon" type="submit">Search</button>

@@ -21,6 +21,8 @@ use app\models\Activity;
 class Subactivity extends \jeemce\models\Model
 {
     use SubactivityTrait;
+
+    public $department_id;
     /**
      * {@inheritdoc}
      */
@@ -35,7 +37,7 @@ class Subactivity extends \jeemce\models\Model
     public function rules()
     {
         return [
-            [['point', 'activity_id', 'department_id', 'status', 'position_id'], 'safe'],
+            [['point', 'activity_id', 'status', 'position_id'], 'required'],
             [['name'], 'string', 'max' => 255],
             [['activity_id'], 'exist', 'skipOnError' => true, 'targetClass' => Activity::class, 'targetAttribute' => ['activity_id' => 'id']],
         ];

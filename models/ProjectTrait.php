@@ -30,10 +30,10 @@ trait ProjectTrait
     public function attributeLabels()
     {
         return [
-            'name'   => 'Name',
-            'code'   => 'Project ID',
+            'name'   => 'Project Name',
+            'code'   => 'PID',
             'value'  => 'Value',
-            'year'   => 'Project Year',
+            'year'   => 'Year',
             'client' => 'Client',
             'status' => 'Status',
         ];

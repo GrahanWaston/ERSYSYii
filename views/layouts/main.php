@@ -4,12 +4,8 @@
 /** @var string $content */
 
 use yii\helpers\Json;
-use app\widgets\Alert;
-use yii\bootstrap5\Nav;
 use app\assets\AppAsset;
 use yii\bootstrap5\Html;
-use yii\bootstrap5\NavBar;
-use yii\bootstrap5\Breadcrumbs;
 
 
 $assets = AppAsset::register($this);
@@ -63,6 +59,9 @@ JAVASCRIPT) ?>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <!-- ChartJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js" integrity="sha512-7U4rRB8aGAHGVad3u2jiC7GA5/1YhQcQjxKeaVms/bT66i3LVBMRcBI9KwABNWnxOSwulkuSXxZLGuyfvo7V1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <title>JMC Employee Report System</title>
 
     <style>
@@ -90,7 +89,7 @@ JAVASCRIPT) ?>
                     </li>
 
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/site/index']) ?>">
+                        <a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/dashboard']) ?>">
                             <i class="fa-solid fa-gauge align-middle fs-4"></i>
                             <span class="align-middle">Dashboard</span>
                         </a>
@@ -101,7 +100,7 @@ JAVASCRIPT) ?>
                     </li>
 
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/project/index']) ?>">
+                        <a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/project']) ?>">
                             <i class="fa-solid fa-briefcase align-middle fs-4"></i>
                             <span class="align-middle">Project Management</span>
                         </a>
@@ -113,15 +112,10 @@ JAVASCRIPT) ?>
                             <span class="align-middle">Activity Management</span>
                         </a>
                         <ul id="activity" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                            <li class="sidebar-subitem"><a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/activity/index']) ?>"><i class="align-middle" data-feather="chevron-right"></i>Activity</a></li>
-                            <li class="sidebar-subitem"><a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/subactivity/index']) ?>"><i class="align-middle" data-feather="chevron-right"></i>Subactivity</a></li>
+                            <li class="sidebar-subitem"><a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/activity']) ?>"><i class="align-middle" data-feather="chevron-right"></i>Activity</a></li>
+                            <li class="sidebar-subitem"><a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/subactivity']) ?>"><i class="align-middle" data-feather="chevron-right"></i>Subactivity</a></li>
+                            <li class="sidebar-subitem"><a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/kpi']) ?>"><i class="align-middle" data-feather="chevron-right"></i>Key Performance Index</a></li>
                         </ul>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/reference/index']) ?>">
-                            <i class="align-middle" data-feather="file-plus"></i> <span class="align-middle">Reference</span>
-                        </a>
                     </li>
 
                     <li class="sidebar-header">
@@ -131,21 +125,21 @@ JAVASCRIPT) ?>
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/ema']) ?>">
                             <i class="fa-solid fa-clipboard-list align-middle fs-4"></i>
-                            <span class="align-middle">Employee Monthly Activity (EMA)</span>
+                            <span class="align-middle">Employee Monthly Activity</span>
                         </a>
                     </li>
 
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="management-sda.html">
+                        <a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/sda']) ?>">
                             <i class="fa-solid fa-clipboard-list align-middle fs-4"></i>
-                            <span class="align-middle">Sales Daily Activity (SDA)</span>
+                            <span class="align-middle">Sales Daily Activity</span>
                         </a>
                     </li>
 
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="management-pa.html">
+                        <a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/pa']) ?>">
                             <i class="fa-solid fa-clipboard-list align-middle fs-4"></i>
-                            <span class="align-middle">Performance Apraisal (PA)</span>
+                            <span class="align-middle">Performance Apraisal</span>
                         </a>
                     </li>
 
@@ -161,23 +155,27 @@ JAVASCRIPT) ?>
                     </li>
 
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/ema/report']) ?>">
+                        <a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/ema/report/index']) ?>">
                             <i class="fa-solid fa-receipt align-middle fs-4"></i>
-                            <span class="align-middle">EMA Report</span>
+                            <span class="align-middle">Employee Monthly Activity</span>
                         </a>
                     </li>
 
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/report/sda']) ?>">
+                        <a data-bs-target="#sda" data-bs-toggle="collapse" class="sidebar-link collapsed dropdown-toggle">
                             <i class="fa-solid fa-receipt align-middle fs-4"></i>
-                            <span class="align-middle">SDA Report</span>
+                            <span class="align-middle">Sales Daily Activity</span>
                         </a>
+                        <ul id="sda" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-subitem"><a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/sda/report/index']) ?>"><i class="align-middle" data-feather="chevron-right"></i>Daily Report</a></li>
+                            <li class="sidebar-subitem"><a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/sda/report/monthly']) ?>"><i class="align-middle" data-feather="chevron-right"></i>Monthly Report</a></li>
+                        </ul>
                     </li>
 
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/report/pa']) ?>">
+                        <a class="sidebar-link" href="<?= \yii\helpers\Url::to(['/pa/report/index']) ?>">
                             <i class="fa-solid fa-receipt align-middle fs-4"></i>
-                            <span class="align-middle">PA Report</span>
+                            <span class="align-middle">Performance Apraisal</span>
                         </a>
                     </li>
 
@@ -198,8 +196,8 @@ JAVASCRIPT) ?>
                     </li>
                 </ul>
 
-                <div class="mt-3 text-center py-3 border-top bg-light">
-                    <img class="mb-2" src="<?= $assets->baseUrl ?>/img/icons/jmc.svg" height="25" alt="">
+                <div class="mt-3 text-center py-1 border-top bg-light">
+                    <img class="mb-2" src="<?= $assets->baseUrl ?>/img/icons/jmc.svg" height="25" alt="JMC Indonesia">
                     <div class="text-muted">Powered by JMC Indonesia</div>
                 </div>
             </div>
@@ -212,7 +210,7 @@ JAVASCRIPT) ?>
                     <!-- <i class="hamburger align-self-center"></i> -->
                 </a>
                 <div>
-                    <img src="<?= $assets->baseUrl ?>/img/icons/jmc.svg" height="15" class="mr" alt="">
+                    <img src="<?= $assets->baseUrl ?>/img/icons/jmc.svg" height="15" class="me-1" alt="">
                     <span class="d-none d-md-inline-block">Employee Report System</span>
                 </div>
                 <div class="navbar-collapse collapse">
@@ -226,11 +224,8 @@ JAVASCRIPT) ?>
                                 <span class="text-dark">JMC Developer</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
-                                <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
-                                <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
+                                <a class="dropdown-item" href="#!"><i class="align-middle me-1" data-feather="settings"></i> Settings</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Log out</a>
                             </div>
@@ -253,7 +248,7 @@ JAVASCRIPT) ?>
 
     <div id="modal-delete-confirm" class="modal fade modal-blur" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-content">
+            <div class="modal-content bg-white">
                 <div class="modal-status bg-success"></div>
                 <div class="modal-body text-center py-4">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -261,19 +256,19 @@ JAVASCRIPT) ?>
                         <path d="M12 9v2m0 4v.01"></path>
                         <path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75"></path>
                     </svg>
-                    <h3><?= Yii::t('app', 'Hapus Data') ?></h3>
+                    <h3><?= Yii::t('app', 'Delete') ?></h3>
                     <div class="text-muted">
-                        Apakah anda yakin hapus? Data tidak dapat dikembalikan!
+                        Are you sure you want to continue this?
                     </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer bg-white d-flex justify-content-between">
                     <div class="w-100">
                         <div class="row">
                             <div class="col">
-                                <a href="#" class="btn w-100" data-bs-dismiss="modal">Batal</a>
+                                <a href="#" class="btn w-100" data-bs-dismiss="modal">Cancel</a>
                             </div>
                             <div class="col">
-                                <a href="#" class="action-delete-confirm btn btn-danger w-100">Yakin</a>
+                                <a href="#" class="action-delete-confirm btn btn-danger w-100">Continue</a>
                             </div>
                         </div>
                     </div>
@@ -288,175 +283,6 @@ JAVASCRIPT) ?>
     ) ?>
 
     <?php $this->endBody() ?>
-
-    <script>
-        // document.addEventListener("DOMContentLoaded", function() {
-        //     var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
-        //     var gradient = ctx.createLinearGradient(0, 0, 0, 225);
-        //     gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
-        //     gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
-        //     // Line chart
-        //     new Chart(document.getElementById("chartjs-dashboard-line"), {
-        //         type: "line",
-        //         data: {
-        //             labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        //             datasets: [{
-        //                 label: "Poin",
-        //                 fill: true,
-        //                 backgroundColor: gradient,
-        //                 borderColor: window.theme.warning,
-        //                 data: [
-        //                     2115,
-        //                     1562,
-        //                     1584,
-        //                     1892,
-        //                     1587,
-        //                     1923,
-        //                     2566,
-        //                     2448,
-        //                     2805,
-        //                     3438,
-        //                     2917,
-        //                     3327
-        //                 ]
-        //             }]
-        //         },
-        //         options: {
-        //             maintainAspectRatio: false,
-        //             legend: {
-        //                 display: false
-        //             },
-        //             tooltips: {
-        //                 intersect: false
-        //             },
-        //             hover: {
-        //                 intersect: true
-        //             },
-        //             plugins: {
-        //                 filler: {
-        //                     propagate: false
-        //                 }
-        //             },
-        //             scales: {
-        //                 xAxes: [{
-        //                     reverse: true,
-        //                     gridLines: {
-        //                         color: "rgba(0,0,0,0.0)"
-        //                     }
-        //                 }],
-        //                 yAxes: [{
-        //                     ticks: {
-        //                         stepSize: 1000
-        //                     },
-        //                     display: true,
-        //                     borderDash: [3, 3],
-        //                     gridLines: {
-        //                         color: "rgba(0,0,0,0.0)"
-        //                     }
-        //                 }]
-        //             }
-        //         }
-        //     });
-        // });
-    </script>
-    <script>
-        // document.addEventListener("DOMContentLoaded", function() {
-        //     // Pie chart
-        //     new Chart(document.getElementById("chartjs-dashboard-pie"), {
-        //         type: "pie",
-        //         data: {
-        //             labels: ["Chrome", "Firefox", "IE"],
-        //             datasets: [{
-        //                 data: [47, 53],
-        //                 backgroundColor: [
-        //                     window.theme.dark,
-        //                     window.theme.warning
-        //                 ],
-        //                 borderWidth: 5
-        //             }]
-        //         },
-        //         options: {
-        //             responsive: !window.MSInputMethodContext,
-        //             maintainAspectRatio: false,
-        //             legend: {
-        //                 display: false
-        //             },
-        //             cutoutPercentage: 75
-        //         }
-        //     });
-        // });
-    </script>
-    <script>
-        // document.addEventListener("DOMContentLoaded", function() {
-        //     // Pie chart
-        //     new Chart(document.getElementById("chartjs-dashboard-pie-sda"), {
-        //         type: "pie",
-        //         data: {
-        //             labels: ["Chrome", "Firefox", "IE"],
-        //             datasets: [{
-        //                 data: [47, 53],
-        //                 backgroundColor: [
-        //                     window.theme.dark,
-        //                     window.theme.warning
-        //                 ],
-        //                 borderWidth: 5
-        //             }]
-        //         },
-        //         options: {
-        //             responsive: !window.MSInputMethodContext,
-        //             maintainAspectRatio: false,
-        //             legend: {
-        //                 display: false
-        //             },
-        //             cutoutPercentage: 75
-        //         }
-        //     });
-        // });
-    </script>
-    <script>
-        // document.addEventListener("DOMContentLoaded", function() {
-        //     // Bar chart
-        //     new Chart(document.getElementById("chartjs-dashboard-bar"), {
-        //         type: "bar",
-        //         data: {
-        //             labels: ["1", "2", "3", "4", "5", "6", "7"],
-        //             datasets: [{
-        //                 label: "This year",
-        //                 backgroundColor: window.theme.warning,
-        //                 borderColor: window.theme.dark,
-        //                 hoverBackgroundColor: window.theme.success,
-        //                 hoverBorderColor: window.theme.warning,
-        //                 data: [54, 67, 41, 55, 62, 45, 55],
-        //                 barPercentage: .75,
-        //                 categoryPercentage: .5
-        //             }]
-        //         },
-        //         options: {
-        //             maintainAspectRatio: false,
-        //             legend: {
-        //                 display: false
-        //             },
-        //             scales: {
-        //                 yAxes: [{
-        //                     gridLines: {
-        //                         display: false
-        //                     },
-        //                     stacked: false,
-        //                     ticks: {
-        //                         stepSize: 20
-        //                     }
-        //                 }],
-        //                 xAxes: [{
-        //                     stacked: false,
-        //                     gridLines: {
-        //                         color: "transparent"
-        //                     }
-        //                 }]
-        //             }
-        //         }
-        //     });
-        // });
-    </script>
 </body>
 
 </html>

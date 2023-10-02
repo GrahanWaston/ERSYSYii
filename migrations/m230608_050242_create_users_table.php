@@ -10,19 +10,6 @@ class m230608_050242_create_users_table extends Migration
     /**
      * {@inheritdoc}
      */
-    
-    // pk: auto-incremental primary key type (“int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY”).
-    // string: string type (“varchar(255)”).
-    // text: a long string type (“text”).
-    // integer: integer type (“int(11)”).
-    // boolean: boolean type (“tinyint(1)”).
-    // float: float number type (“float”).
-    // decimal: decimal number type (“decimal”).
-    // datetime: datetime type (“datetime”).
-    // timestamp: timestamp type (“timestamp”).
-    // time: time type (“time”).
-    // date: date type (“date”).
-    // binary: binary data type (“blob”).
 
     public function safeUp()
     {

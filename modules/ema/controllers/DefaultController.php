@@ -27,12 +27,12 @@ class DefaultController extends BaseController
         $dataProvider->sort = false;
         return $this->render('index', get_defined_vars());
     }
-    
+
     public function actionForm($id = null)
     {
         /**
          * point = (progress % * subactivity)
-         * score_adjusment = point - (score_adjustment)
+         * score_adjusment = point - (score_validation)
          */
         if ($id) {
             $model = $this->findModel($id);
@@ -40,7 +40,9 @@ class DefaultController extends BaseController
             $model = new Ema;
         }
 
-        $model->user_id = Yii::$app->user->identity;
+        $model->status = 0;
+        $model->user_id = Yii::$app->user->identity ?? 1; # edit soon
+        $model->score_validation = 0;
 
         if ($result = $this->save($model)) return $result;
 

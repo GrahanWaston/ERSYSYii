@@ -23,7 +23,7 @@ class m230608_050323_create_sda_table extends Migration
             'point' => $this->integer(),
             'note' => $this->string(),
             'status' => $this->integer(),
-            'score_adjustment' => $this->integer(),
+            'score_validation' => $this->integer(),
             'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
             'updated_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
         ]);

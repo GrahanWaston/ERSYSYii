@@ -11,7 +11,16 @@ $config = [
     ],
     'modules' => [
         'jeemce' => \jeemce\Module::class, // 1
+        'json' => 'app\modules\json\Module',
+        'dashboard' => 'app\modules\dashboard\Module',
+        'project' => 'app\modules\project\Module',
+        'activity' => 'app\modules\activity\Module',
+        'subactivity' => 'app\modules\subactivity\Module',
         'ema' => 'app\modules\ema\Module',
+        'sda' => 'app\modules\sda\Module',
+        'reference'  => 'app\modules\reference\Module',
+        'kpi'  => 'app\modules\kpi\Module',
+        'pa'  => 'app\modules\pa\Module',
     ],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -47,14 +56,14 @@ $config = [
                 ],
             ],
         ],
-        /*
         'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
+            // 'enablePrettyUrl' => true,
+            // 'showScriptName' => false,
             'rules' => [
+                '/<module>/<action>' => '/<module>/default/<action>',
+                '/<module>/<controller>/<action>' => '/<module>/<controller>/<action>',
             ],
         ],
-        */
     ],
     'params' => $params,
 ];

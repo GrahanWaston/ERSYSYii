@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string|null $name
+ * @property int|null $department_id
  * @property int $status
  */
 class Activity extends \jeemce\models\Model
@@ -29,9 +30,19 @@ class Activity extends \jeemce\models\Model
     public function rules()
     {
         return [
-            [['name', 'status'], 'required'],
+            [['name', 'status', 'department_id'], 'required'],
             [['name'], 'string', 'max' => 255],
         ];
+    }
+
+    /**
+     * Gets query for [[Department]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDepartment()
+    {
+        return $this->hasOne(Department::class, ['id' => 'department_id']);
     }
 
     /**

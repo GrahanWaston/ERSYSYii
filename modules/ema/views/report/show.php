@@ -28,6 +28,19 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
 
         <div class="mt-3">
+            <div class="d-flex flex-wrap gap-2">
+                <a href="<?= Url::toRoute(['status', 'value' => 1]); ?>" type="submit" class="btn btn-success" onclick="deleteAllConfirm(this, event)">
+                    <i class="fa-regular fa-circle-check"></i>
+                    <span class="text-light">Validate</span>
+                </a>
+                <a href="<?= Url::toRoute(['status', 'value' => 0]); ?>" type="submit" class="btn btn-danger" onclick="deleteAllConfirm(this, event)">
+                    <i class="fa-regular fa-circle-xmark"></i> 
+                    <span class="text-light">Invalidate</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-3">
             <div class="col-auto">
                 <?= $this->render('index_header', get_defined_vars()); ?>
             </div>
@@ -44,13 +57,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     'tableOptions' => ['class' => 'table table-hover'],
                     'columns' => [
-                        // ['class' => yii\grid\CheckboxColumn::class],
+                        ['class' => yii\grid\CheckboxColumn::class],
                         ['class' => yii\grid\SerialColumn::class],
                         [
                             'header' => 'Action',
-                            'headerOptions' => ['style' => 'width:75px;', 'class' => 'text-center'],
-                            'contentOptions' => ['class' => 'd-flex gap-2 justify-content-between'], 
-                            'class' => ActionColumn::className(),
+                            'headerOptions' => ['style' => 'width:100px;', 'class' => 'text-center'],
+                            'contentOptions' => ['style' => 'vertical-align:top', 'class' => 'text-center'], 
+                            'class' => ActionColumn::class,
                             'urlCreator' => function ($action, EMA $model, $key, $index, $column) {
                                 return Url::toRoute([$action, 'id' => $model->id]);
                             },
@@ -65,42 +78,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]
                         ],
                         [
-                            'attribute' => 'project.name',
-                            'contentOptions' => [
-                                'style' => 'min-width:250px; vertical-align:top;'
-                            ],
-                        ],
-                        [
-                            'attribute' => 'activity.name',
-                            'contentOptions' => [
-                                'style' => 'min-width:125px; vertical-align:top;'
-                            ],
-                        ],
-                        [
-                            'attribute' => 'subactivity.name',
-                            'contentOptions' => [
-                                'style' => 'min-width:250px; vertical-align:top;'
-                            ],
-                        ],
-                        [
-                            'attribute' => 'month',
-                            'contentOptions' => [
-                                'style' => 'min-width:auto; vertical-align:top;'
-                            ],
-                            'value' => function ($model, $key, $index, $grid) {
-                                    return date("F", mktime(0, 0, 0, $model->month, 10));
-                            },
-                        ], 
-                        [
-                            'attribute' => 'year',
-                            'contentOptions' => [
-                                'style' => 'min-width:auto; vertical-align:top;'
-                            ],
-                        ],
-                        [
                             'attribute' => 'status',
                             'contentOptions' => [
-                                'style' => 'min-width:auto; vertical-align:top;',
+                                'style' => 'min-width:150px; vertical-align:top;',
                                 'class' => 'text-center'
                             ],
                             'class' => BadgeColumn::class,
@@ -110,9 +90,47 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                             'badgeValues' => EMA::status_options()
                         ],
-                        'progress',
                         [
-                            'attribute' => 'score_adjustment',
+                            'attribute' => 'project.name',
+                            'contentOptions' => [
+                                'style' => 'min-width:150px; vertical-align:top;'
+                            ],
+                        ],
+                        [
+                            'attribute' => 'activity.name',
+                            'contentOptions' => [
+                                'style' => 'min-width:150px; vertical-align:top;'
+                            ],
+                        ],
+                        [
+                            'attribute' => 'subactivity.name',
+                            'contentOptions' => [
+                                'style' => 'min-width:150px; vertical-align:top;'
+                            ],
+                        ],
+                        [
+                            'attribute' => 'month',
+                            'contentOptions' => [
+                                'style' => 'min-width:150px; vertical-align:top;'
+                            ],
+                            'value' => function ($model, $key, $index, $grid) {
+                                    return date("F", mktime(0, 0, 0, $model->month, 10));
+                            },
+                        ], 
+                        [
+                            'attribute' => 'year',
+                            'contentOptions' => [
+                                'style' => 'min-width:150px; vertical-align:top;'
+                            ],
+                        ],
+                        [
+                            'attribute' => 'progress',
+                            'contentOptions' => [
+                                'style' => 'min-width:150px; vertical-align:top;'
+                            ],
+                        ],
+                        [
+                            'attribute' => 'score_validation',
                             'contentOptions' => [
                                 'style' => 'min-width:150px; vertical-align:top;'
                             ],
@@ -120,16 +138,16 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'point',
                             'value' => function($model){
-                                return $model->point - $model->score_adjustment ?? 0;
+                                return $model->point + $model->score_validation ?? 0;
                             },
                             'contentOptions' => [
-                                'style' => 'min-width:auto; vertical-align:top;'
+                                'style' => 'min-width:150px; vertical-align:top;'
                             ],
                         ],
                         [
                             'attribute' => 'note',
                             'contentOptions' => [
-                                'style' => 'min-width:auto; vertical-align:top;'
+                                'style' => 'min-width:150px; vertical-align:top;'
                             ],
                         ],
                     ],

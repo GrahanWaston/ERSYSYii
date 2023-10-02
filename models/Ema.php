@@ -16,7 +16,7 @@ use Yii;
  * @property int|null $point
  * @property string|null $note
  * @property int|null $status
- * @property int|null $score_adjustment
+ * @property int|null $score_validation
  * @property string $timestamp
  *
  * @property Activity $activity
@@ -42,7 +42,7 @@ class EMA extends \jeemce\models\Model
     public function rules()
     {
         return [
-            [['user_id', 'project_id', 'activity_id', 'subactivity_id', 'month', 'year', 'progress', 'point', 'status', 'score_adjustment'], 'safe'],
+            [['user_id', 'project_id', 'activity_id', 'subactivity_id', 'month', 'year', 'progress', 'point', 'status', 'score_validation'], 'safe'],
             [['timestamp'], 'safe'],
             [['task', 'note'], 'string', 'max' => 255],
             [['activity_id'], 'exist', 'skipOnError' => true, 'targetClass' => Activity::class, 'targetAttribute' => ['activity_id' => 'id']],
@@ -90,10 +90,5 @@ class EMA extends \jeemce\models\Model
     public function getUser()
     {
         return $this->hasOne(Users::class, ['id' => 'user_id']);
-    }
-
-    public static function summary()
-    {
-        return static::find()->select(['*', 'SUM(point - score_adjustment) as total'])->groupBy(['user_id', 'month']);
     }
 }

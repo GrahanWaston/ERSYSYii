@@ -17,7 +17,6 @@ class m230608_050307_create_subactivities_table extends Migration
             'name' => $this->string(),
             'point' => $this->integer(),
             'activity_id' => $this->integer(),
-            'department_id' => $this->integer(),
             'position_id' => $this->integer(),
             'status' => $this->integer(),
             'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
@@ -29,13 +28,6 @@ class m230608_050307_create_subactivities_table extends Migration
             'index_subactivity_activity_id',
             'subactivities',
             'activity_id'
-        );
-
-        // creates index for column `department_id`
-        $this->createIndex(
-            'index_subactivity_department_id',
-            'subactivities',
-            'department_id'
         );
 
         // creates index for column `position_id`
@@ -51,16 +43,6 @@ class m230608_050307_create_subactivities_table extends Migration
             'subactivities',
             'activity_id',
             'activities',
-            'id',
-            'CASCADE'
-        );
-
-        // add foreign key for table `departments`
-        $this->addForeignKey(
-            'fk_subactivity_department_id',
-            'subactivities',
-            'department_id',
-            'departments',
             'id',
             'CASCADE'
         );

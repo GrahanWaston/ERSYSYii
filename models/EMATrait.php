@@ -12,6 +12,14 @@ trait EMATrait
         ];
     }
 
+    public static function achievement()
+    {
+        return [
+            0 => 'Not Achieved',
+            1 => 'Achieved',
+        ];
+    }
+
     public static function month_options()
     {
         return [
@@ -32,13 +40,14 @@ trait EMATrait
 
     public static function year_options()
     {
-        return [
-            2022 => 2022,
-            2023 => 2023,
-            2024 => 2024,
-            2025 => 2025,
-            2026 => 2026
-        ];
+        $options = [];
+        $j = 0;
+        for ($i = date('Y'); $i >= 2022; $i--) {
+            $options[$i] = $i;
+            $options[$i] = $i;
+            $j++;
+        }
+        return $options;
     }
 
     /**
@@ -49,11 +58,11 @@ trait EMATrait
         return [
             'id' => 'ID',
             'user_id' => 'User',
-            'project_id' => 'Project ID',
+            'project_id' => 'Project',
             'project.name' => 'Project',
-            'activity_id' => 'Activity ID',
+            'activity_id' => 'Activity',
             'activity.name' => 'Activity',
-            'subactivity_id' => 'Subactivity ID',
+            'subactivity_id' => 'Subactivity',
             'subactivity.name' => 'Subactivity',
             'month' => 'Month',
             'year' => 'Year',
@@ -62,9 +71,14 @@ trait EMATrait
             'point' => 'Point',
             'note' => 'Note',
             'status' => 'Status',
-            'score_adjustment' => 'Score Adjustment',
+            'score_validation' => 'Score Validation',
             'timestamp' => 'Timestamp',
         ];
+    }
+
+    public static function summary()
+    {
+        return static::find()->select(['*', 'SUM(point + score_validation) as total'])->groupBy(['user_id', 'month']);
     }
 
     public function beforeSave($insert)

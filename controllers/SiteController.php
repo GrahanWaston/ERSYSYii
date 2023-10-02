@@ -35,7 +35,14 @@ class SiteController extends \jeemce\controllers\SiteController
                     'logout' => ['post'],
                 ],
             ],
+
         ];
+    }
+
+    public function beforeAction($action)
+    {
+        $this->layout = 'auth';
+        return true;
     }
 
     /**
@@ -45,7 +52,8 @@ class SiteController extends \jeemce\controllers\SiteController
      */
     public function actionIndex()
     {
-        return $this->render('dashboard/dashboard');
+        $model = new LoginForm();
+        return $this->render('index', get_defined_vars());
     }
 
     /**
@@ -80,33 +88,5 @@ class SiteController extends \jeemce\controllers\SiteController
         Yii::$app->user->logout();
 
         return $this->goHome();
-    }
-
-    /**
-     * Displays contact page.
-     *
-     * @return Response|string
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
     }
 }

@@ -20,7 +20,7 @@ class ReportController extends BaseController
 
     public function actionEma()
     {
-        $query = EMA::find()->select(['*', 'SUM(point - score_adjustment) as total'])->groupBy(['user_id', 'month']);
+        $query = EMA::find()->select(['*', 'SUM(point - score_validation) as total'])->groupBy(['user_id', 'month']);
         $searchModel = new MimikSearchV2(EMA::class, $this->request->queryParams, []);
         $dataProvider = $searchModel->searchProvider($query);
         $dataProvider->pagination->defaultPageSize = 10;
